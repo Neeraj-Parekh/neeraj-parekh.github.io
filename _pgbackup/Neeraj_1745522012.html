@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./Neeraj_files/neeraj.png" type="image/x-icon"> 
+    <link rel="stylesheet" href="./Neeraj_files/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- use cloudfare font in website from this rel -->
+    <title>Neeraj Parekh Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Neeraj's Portfolio</title>
+    <!--content -->
+    <style>:root { --light-bg: #fafafa; --light-text: #333; --dark-bg: #171818; --dark-text: #d7d3cc; --sepia-bg: #FBF0D9; --sepia-text: #5F4B32; --accent-color: #abbaab; --light-accent-color: #ccc; } body { font-family: Arial, sans-serif; margin: 0; padding: 0; overflow-x: hidden;  /* Prevent horizontal scrollbar */ } body.light-theme { background-color: var(--light-bg); color: var(--light-text); } body.dark-theme { background-color: var(--dark-bg); color: var(--dark-text); } a { color: inherit; text-decoration: none; } #theme-buttons { position: fixed; top: 10px; right: 10px; } #theme-buttons button { margin: 0 5px; padding: 5px 10px; border: none; cursor: pointer; } .section-logos { width: 24px; height: 24px; } .svg-logos { width: 50px; height: 50px; max-width: 100%; object-fit: contain; } ul { padding-left: 0; } li { list-style: none; margin-bottom: 10px; display: flex; align-items: center; } li object { margin-right: 10px; display: inline-block; } li:hover { color: var(--accent-color); cursor: pointer; } :root { /* --background-color: #fafafa; */ --text-color: #333; --text-title-color: #111; --text-hover-color: #000; --light-accent-color: #ccc; --accent-color: #abbaab; --blue-color: #2980b9; } html { background-color: var(--background-color); } body { color: var(--text-color); width: 75%; margin: 0em auto; display: flex; flex-direction: column; justify-content: space-between; } a { color: inherit; text-decoration: none; } section { background-color: transparent; } .watermark { position: fixed; margin: 0em auto; font-size: 10rem; font-weight: bolder; font-family: nunito; opacity: 0.03; z-index: -1000; } .watermark:first-child { top: 0; left: -2em; } .watermark:nth-child(2) { bottom: 0em; right: -1em; font-size: 27rem; } .watermark:nth-child(3) { bottom: 0; left: 0; font-size: 2rem; } #name { animation-name: name; font-weight: bold; font-family: "poppins", helvetica, arial; animation-duration: 1.7s; animation-timing-function: ease-out; color: var(--text-title-color); } #slogan { animation-name: slogan; animation-duration: 1.2s; animation-timing-function: ease-in-out; font-weight: bold; animation-fill-mode: forwards; } #menu { display: flex; flex-direction: row; max-width: 50%; color: gray; animation-name: menu; animation-duration: 0.8s; animation-timing-function: ease-out; margin-top: 10em; } #menu a { font-family: "roboto mono", monospace; font-size: 0.9em; font-weight: light; margin-right: 2em; padding: 5px; border: 2px solid var(--light-accent-color); box-shadow: 5px 5px 0px 2px var(--light-accent-color); white-space: nowrap; } #menu a:hover { border: 2px solid var(--text-color); color: var(--text-hover-color); background-color: var(--light-accent-color); box-shadow: 0px 0px 0px 0px; transition: all 0.4s; } #switch-container img { width: 2em; height: 2em; cursor: pointer; animation: ldIcon; animation-duration: 1.5s; position: fixed; top: 1.9vw; transition: All 1s; } #about-me-section { width: 75%; line-height: 1.7em; } section h2 { color: var(--text-title-color); } #about-me-intro-section { font-size: 0.8em; width: 400px; opacity: 0.8; margin-bottom: 2em; } #about-me-intro-section p { margin-bottom: 2em; } #about-me-intro-section a { border: 2px solid var(--text-color); color: var(--text-hover-color); background-color: var(--light-accent-color); box-shadow: 0px 0px 0px 0px; padding: 0.5em 1.5em; transition: all 0.4s; } #about-me-intro-section a:hover { background-color: var(--text-hover-color); font-size: 1em; color: var(--background-color); } #about-me-section a { display: inline-block; padding: 0.5em; font-size: 0.9em; color: var(--text-hover-color); background-color: var(--light-accent-color); box-shadow: 0px 0px 3px 1px var(--light-accent-color); margin: 1em 0em 0em 0em; opacity: 0.7; box-shadow: 5px 5px 0px 3px, 0px 0px 0px 3px; } #about-me-section a:hover { transition: all 0.4s; color: var(--background-color); background-color: var(--text-color); box-shadow: 0px 0px 0px 0px var(--light-accent-color),
+                3px 3px 0px 0px var(--light-accent-color); opacity: 1; } .section:not(#about-me-intro-section) { display: none; } .section:first-child { animation-name: first-about-me-animation; animation-duration: 1s; animation-timing-function: ease-in; animation-fill-mode: forwards; margin-top: 2em; } .visible { display: block; } #header-name-ldm { display: flex; width: 100%; align-items: center; justify-content: space-between; } #skills-section article>section { font-family: "roboto mono", monospace; font-size: 0.9em; font-weight: light; padding: 5px; border: 2px solid var(--light-accent-color); box-shadow: 5px 5px 0px 2px var(--light-accent-color); white-space: nowrap; } #links-section>div { margin-left: 1em; } #links-section>div>* { min-width: max-content; opacity: 0.5; margin-right: 2em; font-weight: 700; font-size: 1.5em; } #links-section>div>*:hover { opacity: 1; } article { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 0.5fr)); gap: 2em; } article section { min-width: 22em; background-color: var(--background-color); } article object { height: 2.5em; width: 1.5em; margin-right: 0.5em; } svg { fill: blue; } section h4 { display: flex; font-size: 0.9rem; margin-left: 1em; justify-content: space-between; font-weight: bolder; color: var(--text-hover-color); margin-right: 2em; margin-bottom: 2em; } section h4>img { height: 3em; width: 3em; opacity: 0.2; display: none; margin-top: -1em; box-sizing: border-box; padding: 0.5em; background-color: aliceblue; } article>section>ul { list-style-type: none; font-size: 0.8em; padding-left: 1em; margin: -1em 0em 1em 0em; } article li { display: flex; align-items: center; font-size: 1.1em; font-family: roboto mono; } #projects-section { display: flex; } #projects-wrapper { display: grid; grid-template-columns: repeat(auto-fill, minmax(30rem, 0.5fr)); gap: 3em; } #projects-wrapper>div { background-color: var(--background-color); padding: 0 1em; display: flex; align-items: stretch; box-shadow: 0px 0px 0px 5px var(--light-accent-color),
+                15px 15px 0px 5px var(--light-accent-color); } #projects-wrapper>div:hover { box-shadow: 0px 0px 0px 5px, 0px 0px 0px 5px; transition: all 0.4s; } #projects-wrapper>div>div { display: flex; flex-direction: column; justify-content: space-evenly; padding-right: 2em; } #projects-wrapper>div h3 em { font-size: 0.7em; font-weight: 400; word-wrap: none; white-space: nowrap; } #projects-wrapper>div h3 a:hover { text-decoration: underline; opacity: 0.5; position: relative; top: -2px; } #projects-wrapper img { width: 200px; height: 300px; padding: 1em; margin: 1em 1em 1em 2em; opacity: 0.8; box-shadow: 2px 2px 0px 4px rgba(240, 240, 240, 0.5),
+                -2px -2px 0px 0px var(--light-accent-color); } .tags { display: flex; flex-direction: column; } .tags>span { margin-right: 1em; font-size: 0.7em; opacity: 0.5; padding: 0.3em 0.7em; font-family: "roboto mono"; } .tags>span:hover { opacity: 0.9; } #projects-wrapper>div>span { border: 1px solid #ccc; text-align: center; width: 50%; margin: 1em auto; } #links-section>div { height: 1em; display: grid; grid-template-columns: repeat(2, 1fr); width: 50%; } #links-section>div>* { margin-top: 1em; box-shadow: 5px 5px 0px 2px var(--light-accent-color); padding: 0.5em; border: 2px solid var(--light-accent-color); } #links-section>div>*:hover { box-shadow: 0px 0px 0px 0px; border: 2px solid var(--text-color); color: var(--text-color); background-color: var(--light-accent-color); transition: all 0.4s; } #links-section>div a i { color: var(--text-color); margin-right: 0.5em; opacity: 1; } .active>* { color: var(--background-color) !important; background-color: var(--text-color) !important; padding: 0.5em; border: 2px solid var(--text-color) !important; box-shadow: 1px 1px 0px 2px var(--text-color) !important; } .active>*:hover { box-sizing: border-box; background-color: transparent; padding: 0.5em; } footer { position: absolute; bottom: 0px; } #go-back-button { opacity: 0.8; font-family: "roboto mono"; outline: none; background-color: var(--text-color); color: var(--background-color); position: relative; top: -2em; padding: 1em; border: none; display: none; font-size: 0.8em; text-align: center; } ::-webkit-scrollbar { width: 10px;  /* Width of the scrollbar */ } ::-webkit-scrollbar-track { background: #eee;  /* Background colour of the scrollbar track */ } ::-webkit-scrollbar-thumb { background: lightblue; border-radius: 10px;  /* Rounded corners for the scrollbar thumb */ } ::-webkit-scrollbar-thumb:hover { background: #555;  /* Colour of the scrollbar thumb on hover */ } .navbar { display: flex; justify-content: space-around; background-color: #333; padding: 1rem; } .navbar a { color: white; text-decoration: none; padding: 0.5rem 1rem; } .navbar a:hover { background-color: #575757; } .section { display: none; padding: 100px 20vw ; position: relative; flex-direction: column; align-items: center; min-height: 400px; padding: 100px 20vw; }</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Neeraj's Portfolio</title>
+</style>
+<body>
+    <div>
+        <div class="watermark">Neeraj</div>
+        <div class="watermark">Neeraj</div>
+        <div id="header-name-ldm">
+            <h1 id="name">Neeraj Parekh</h1>
+            <div id="switch-container">
+                <img src="./Neeraj_files/moon.svg" alt="" style="right: 180px; top: 14px;">
+            </div>
+        </span>         
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Neeraj's Portfolio</title>
+    </div>
+    <p id="slogan">ENTC engineer</p>
+    <div id="go-back-button"> 
+        <i class="topic" aria-hidden="true"></i> Menu
+    </div>
+    <section id="about-me-intro-section" class="section" style="display: none;">
+        <p> <br> </p>
+        <a href="mailto:neerajparekh118@gmail.com"> Get in touch</a>
+    </section>
+    <!-- menu -->
+    <header id="menu" style="margin-top: 0px; display: flex; position: fixed; top: 1vw; transition: 1s; right: 15vw;">
+        <p id="about-me"> <a>About Me</a> </p>
+        <p id="skills" class="active"> <a>Skills</a> </p>
+        <p id="projects"> <a>Projects</a> </p>
+        <p id="links"> <a>Links</a> </p>
+    </header>
+</div>
+<main>
+    <!-- About me -->
+    <section id="about-me-section" class="section" style="display: none;">
+        <header class="head">
+            <div class="about-intro">
+                <!-- <h4>About</h4> -->
+                <h1>Let me introduce myself</h1>
+                <!-- <p class="head-intro">Hi, I'm</p> -->
+                <!-- <h1 class="head-heading">Neeraj Parekh</h1> -->
+        </header>
+        <section class="introduction-section">
+            <h1>Introduction</h1>
+            <p>I am an aspiring Electronics and Telecommunication Engineer from Pune. I have a passion for designing and implementing innovative and efficient solutions in the tech and coding world. With experience in various engineering domains and a focus on telecommunication technologies, I am ready to tackle challenging projects.</p>
+        </section>
+        <pre class="pre_name"> <!-- <img src="./Neeraj_files/me.jpeg" style="float: left; width: 250px; margin-right: 50px;"> --> <main class="main-heading">Neeraj Parekh</main> <!-- _   _                      _   ____                _    _     
+               | \ | | ___  ___ _ __ __ _ (_) |  _ \ __ _ _ __ ___| | _| |__  
+               |  \| |/ _ \/ _ \ '__/ _` || | | |_) / _` | '__/ _ \ |/ / '_ \ 
+               | |\  |  __/  __/ | | (_| || | |  __/ (_| | | |  __/   <| | | |
+               |_| \_|\___|\___|_|  \__,_|/ | |_|   \__,_|_|  \___|_|\_\_| |_|
+                                        |__/                            --> </pre>
+        <section class="location-section">
+            <h1>Where I'm From</h1>
+            <p>I’m from Pune, Maharashtra, and currently studying at MITAOE.</p>
+        </section>
+        <section class="questions-section">
+            <h1>More About Me</h1>
+            <h2>What are your favorite hobbies?</h2>
+            <p>My favorite hobbies include aeromodelling, IoT projects, and exploring new technologies in electronics and software development.</p>
+            <h2>What's your dream job?</h2>
+            <p>My dream job is to work in a role where I can combine my engineering and coding skills to create impactful solutions, particularly in the fields of IoT and telecommunications.</p>
+            <h2>What music have you been listening to lately?</h2>
+            <p>I enjoy listening to instrumental and electronic music that helps me focus while working on projects.</p>
+        </section>
+        <div id="container-profile" class="container-profile">
+            <div class="item one">
+                <div class="about-me-container">
+                    <div class="image-section">
+                        <img src="./Neeraj_files/me.jpg" alt="Neeraj" class="profile-photo" onerror="this.onerror=null; this.src='fallback-image.jpg';">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Skills -->
+    <section id="skills-section" style="display: block; animation-name:fade ; padding: 20px;">
+        <!-- <h2>Skills</h2> -->
+        <div class="skills-flex-container" style="left: 812px;">
+            <!-- Skills Section Container -->
+            <div class="skills-section-container">
+                <article>
+                    <article style="margin-bottom: 20px;" class="pinegrow-ui-helper-relative">
+                        <section>
+                            <h4>Programmings languages <img class="section-logos" src="./Neeraj_files/programming.svg"></h4>
+                            <ul>
+                                <li skill-description="Javascript">
+                                    <object type="image/svg+xml" data="./Neeraj_files/javascript.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            JavaScript
+                                </li>
+                                <li skill-description="C++">
+                                    <object type="image/svg+xml" data="./Neeraj_files/cpp.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            C++
+                                </li>
+                                <li skill-description="Java">
+                                    <object type="image/svg+xml" data="./Neeraj_files/java.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Java
+                                </li>
+                                <li skill-description="Python">
+                                    <object type="image/svg+xml" data="./Neeraj_files/python.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Python
+                                </li>
+                                <li skill-description="Java">
+                                    <object type="image/svg+xml" data="./Neeraj_files/java.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Java
+                                </li>
+                                <li skill-description="Dart">
+                                    <object type="image/svg+xml" data="./Neeraj_files/dart.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Dart
+                                </li>
+                                <li skill-description="C - Embedded">
+                                    <object type="image/svg+xml" data="./Neeraj_files/Embedded C.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Embedded C 
+                                </li>
+                                <li skill-description="BASH"> 
+                                    <object type="image/svg+xml" data="./Neeraj_files/bash.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            BASH
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Tools &amp; Technologies <img class="section-logos" src="./Neeraj_files/tools.svg"></h4>
+                            <ul>
+                                <li skill-description="MATLAB">
+                                    <object type="image/svg+xml" data="./Neeraj_files/matlab.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            MATLAB
+                                </li>                                 
+                                <li skill-description="KiCad">
+                                    <object type="image/svg+xml" data="./Neeraj_files/kicad.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            KiCad
+                                </li>
+                                <li skill-description="Multisim">
+                                    <object type="image/svg+xml" data="./Neeraj_files/multisim.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Multisim
+                                </li>                                 
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Web Development <img class="section-logos" src="./Neeraj_files/backend.svg"></h4>
+                            <ul>
+                                <li skill-description="HTML ">
+                                    <object type="image/svg+xml" data="./Neeraj_files/html5.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            HTML
+                                </li>
+                                <li skill-description="CSS">
+                                    <object type="image/svg+xml" data="./Neeraj_files/css.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            CSS
+                                </li>
+                                <li skill-description="Django">
+                                    <object type="image/svg+xml" data="./Neeraj_files/django.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Django
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Services &amp; Tools <img class="section-logos" src="./Neeraj_files/services.svg"></h4>
+                            <ul>
+                                <li skill-description="GitHub">
+                                    <object type="image/svg+xml" data="./Neeraj_files/github.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            GitHub
+                                </li>
+                                <li skill-description="Office 365">
+                                    <object type="image/svg+xml" data="./Neeraj_files/office365.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Office 365
+                                </li>
+                                <li skill-description="Wireshark">
+                                    <object type="image/svg+xml" data="./Neeraj_files/wireshark.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Wireshark
+                                </li>
+                                <li skill-description="Brave">
+                                    <object type="image/svg+xml" data="./Neeraj_files/brave.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Brave
+                                </li>
+                                <li skill-description="Proton">
+                                    <object type="image/svg+xml" data="./Neeraj_files/proton.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Proton
+                                </li>
+                                <li skill-description="Obsidian">
+                                    <object type="image/svg+xml" data="./Neeraj_files/obsidian.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Obsidian
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>IDE &amp; Environment <img class="section-logos" src="./Neeraj_files/ide.svg"></h4>
+                            <ul>
+                                <li skill-description="VSCode">
+                                    <object type="image/svg+xml" data="./Neeraj_files/vscode.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            VSCode
+                                </li>
+                                <li skill-description="jupyter notebook">
+                                    <object type="image/svg+xml" data="./Neeraj_files/jupyter notebook.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            jupyter notebook
+                                </li>
+                                <li skill-description="phpstorm">
+                                    <object type="image/svg+xml" data="./Neeraj_files/notepadplusplus.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            phpstorm
+                                </li>
+                                <li skill-description="PyCharm">
+                                    <object type="image/svg+xml" data="./Neeraj_files/pycharm.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            PyCharm
+                                </li>
+                                <li skill-description="Phpstorm">
+                                    <object type="image/svg+xml" data="./Neeraj_files/Phpstorm.svg" class="svg-logos">&nbsp;</object>
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Cloud Provider <img class="section-logos" src="./Neeraj_files/cloud.svg"></h4>
+                            <ul>
+                                <li skill-description="AWS">
+                                    <object type="image/svg+xml" data="./Neeraj_files/aws.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            AWS
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>AVIONICS SIMULATION <img class="section-logos" src="./Neeraj_files/AERO.svg"></h4>
+                            <ul>
+                                <li skill-description="CFD">
+                                    <object type="image/svg+xml" data="./Neeraj_files/CFD.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            CFD
+                                </li>
+                            </ul>
+                        </section>
+                        <section>
+                            <h4>Operating System <img class="section-logos" src="./Neeraj_files/os.svg"></h4>
+                            <ul>
+                                <li skill-description="Windows">
+                                    <object type="image/svg+xml" data="./Neeraj_files/windows.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Windows
+                                </li>
+                                <li skill-description="Kali Linux">
+                                    <object type="image/svg+xml" data="./Neeraj_files/kalilinux.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Kali Linux
+                                </li>
+                                <li skill-description="iOS">
+                                    <object type="image/svg+xml" data="./Neeraj_files/ios.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            iOS
+                                </li>
+                                <li skill-description="Ubuntu">
+                                    <object type="image/svg+xml" data="./Neeraj_files/ubuntu.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Ubuntu
+                                </li>
+                                <li skill-description="Android">
+                                    <object type="image/svg+xml" data="./Neeraj_files/android.svg" class="svg-logos"></object>                                                                                                                                                                                                                                                                                                                                                                                                                                            Android
+                                </li>
+                            </ul>
+                        </section>
+                    </article>
+                </article>
+            </div>
+            <!-- New Section -->
+            <!-- <div id="container3" class="pinegrow-ui-helper-relative" style="bottom: -8426px;">
+                <div class="item one" style="height: 213px;">
+                    <h4><i title="Tools"></i> Tools &amp; Frameworks</h4>
+                    <ul>
+                        <li>React</li>
+                        <li>Angular</li>
+                    </ul>
+                </div>
+                <div class="item two" style="height: 67; width: 121px;">
+                    <ul>
+                        <li>Vue.js</li>
+                        <li>Bootstrap</li>
+                    </ul>
+                </div>
+                <div class="item three">
+                    <ul>
+                        <li>Tailwind CSS</li>
+                        <li>jQuery</li>
+                    </ul>
+                </div>
+            </div> -->
+            <!-- Certifications Column with Grid Layout -->
+            <div id="container1" class="containerA1 pinegrow-ui-helper-relative" style="right: -169px; top: -86px; margin-left: 39px; margin-top: -35px; margin-right: -88px;">
+                <div class="item one" style="width: 2; height: 203px; background-image: url('Neeraj_files/cpp-float.webp');">
+                    <h4><i title="Certifications">A1&nbsp;&nbsp;</i></h4>
+                    <ul>
+                        <li>CPP Programing</li>
+                        <li></li>
+                    </ul>
+                </div>
+                <div class="item two" style="height: 183px; background-image: url('Neeraj_files/dart.png'); background-position: initial;">
+                    <ul>
+                        <li></li>
+                        <li style="color: #4a8bb4;">DART FOR FLUTTER</li>
+                    </ul>
+                </div>
+                <!-- <div class="item three"> -->
+                <!-- </div> -->
+                <div class="item four" style="margin-top: -12px; margin-bottom: 31px; background-image: url('Neeraj_files/bash%20(2).png'); background-size: cover;">
+                    <ul>
+                        <li style="color: #5d4646;">&nbsp;BASH</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="container1" class="containerA2 pinegrow-ui-helper-relative" style="right: -192px; margin-top: -38px; margin-left: 68px;">
+                <div class="item one" style="height: 222; width: 2; background-image: url('Neeraj_files/python.png'); background-position: inherit; color: #dcc1c1;">
+                    <h4><i title="Certifications">A2</i><br></h4>
+                    <ul>
+                        <li>Python for Data Science &amp; ML</li>
+                    </ul>
+                </div>
+                <div class="item two" style="height: 183px; background-image: url('Neeraj_files/embedded%20system%20c%20.png'); background-size: inherit; background-attachment: scroll; background-position: inherit; background-origin: initial;">
+                    <ul>
+                        <li>&nbsp;</li>
+                        <li style="color: #62c55a;">EMBEDDED C FOR ESP32&nbsp;</li>
+                    </ul>
+                </div>
+                <!-- <div class="item three"> -->
+                <!-- </div> -->
+                <div class="item four" style="padding-top: 0px; margin-top: -25px; margin-bottom: 24px; background-image: url('Neeraj_files/html.png'); background-size: cover; background-attachment: scroll;">
+                    <ul>
+                        <li></li>
+                        <li>HTML</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="watermark">Neeraj</div>
+        </div>
+        <div id="container1" class="containerA3 pinegrow-ui-helper-relative" style="top: -2008px; margin-top: -1995px; margin-left: 335px;">
+            <div class="item one" style="height: 222; width: 421px; background-image: url('Neeraj_files/mathlab.png'); background-attachment: scroll; background-position: initial; background-size: cover; background-origin: border-box;">
+                <h4><i title="Certifications"><span style="color: var(--text-hover-color); font-size: 0.9rem; font-weight: bolder;">A3 Certifications</span><br></i></h4>
+                <ul>
+                    <li>
+                        <span style="font-size: 1.5rem;">&nbsp;<span style="color: white;">MATLAB</span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="item two" style="width: 425px; padding-bottom: 3px; margin-bottom: -62px; margin-top: 27px; background-image: url('Neeraj_files/html.png'); background-size: cover; background-attachment: initial; background-position: left bottom;">
+                <ul>
+                    <li></li>
+                    <li>HTML</li>
+                </ul>
+            </div>
+            <!-- <div class="item three"> -->
+            <!-- </div> -->
+        </div>
+        <!-- infront of web development -->
+        <div id="container4" class="containerA5" style="left: 606px; margin-top: -93px; margin-left: 337px;">
+            <div class="item one" style="width: 563px; height: 252px; top: 22px; letter-spacing: 1px; background-image: url('Neeraj_files/github.png'); background-size: cover; background-attachment: initial; background-origin: initial; background-clip: content-box;">
+                <h4><i title="Services &amp; Tools"></i> Services &amp; Tools</h4>
+                <ul>
+                    <li>A5 GitHub</li>
+                    <li>&nbsp;</li>
+                </ul>
+            </div>
+            <div class="item three" style="grid-area: 4 / 3 / 6 / 5; background-image: url('Neeraj_files/obsidian.jpeg'); background-size: cover; color: #dc2121;">
+                <ul>
+                    <li>
+                        <span style="font-size: 1.5rem;">&nbsp;<span style="color: #2f5a5d;">Obsidian</span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="item two" style="width: 445px; background-image: url('Neeraj_files/wireshark.png'); background-origin: initial; background-size: cover;">
+                <ul>
+                    <li>Wireshark</li>
+                    <li>&nbsp;</li>
+                </ul>
+                <div class="item three">
+                    <ul>
+</ul>
+                </div>
+            </div>
+            <div class="item four" style="width: 102px; background-image: url('Neeraj_files/proton.avif');">
+                <ul>
+                    <li>Slack</li>
+                    <li>Zoom</li>
+                </ul>
+            </div>
+            <div class="item one" style="width: 463px; height: 152px; bottom: 56px; background-image: url('Neeraj_files/office.webp');">
+                <h4><i title="Services &amp; Tools"></i> Services &amp; Tools</h4>
+                <ul>
+                    <li>&nbsp;</li>
+                    <li style="color: #46b6cc;">Office 365</li>
+                </ul>
+            </div>
+        </div>
+        <div id="container4" class="containerA6" style="left: 343px; margin-top: -33px; margin-left: 337px;">
+            <div class="item one" style="width: 547px; height: 208px; top: 22px; letter-spacing: 1px; background-image: url('Neeraj_files/vscode.png'); background-size: cover;">
+                <h4><i title="Services &amp; Tools"></i> Services &amp; Tools</h4>
+                <ul>
+                    <li>&nbsp;</li>
+                    <li>VS CODE</li>
+                </ul>
+            </div>
+            <div class="item three" style="grid-area: 4 / 3 / 6 / 5; background-image: url('Neeraj_files/phpstorm.png'); background-attachment: scroll; color: #7b2929;">
+                <ul>
+                    <li>
+                        <span style="font-size: 1.5rem;">&nbsp;<span style="color: #ffffff;">PHP STORM</span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="item two" style="width: 422px; height: 124px; background-image: url('Neeraj_files/jupyter%20notebook.png'); background-size: cover;">
+                <ul>
+                    <li>Wireshark</li>
+                    <li style="color: #000000;">JUPYTER NOTEBOOK</li>
+                </ul>
+                <div class="item three">
+                    <ul>
+</ul>
+                </div>
+            </div>
+            <div class="item four" style="width: 102px; height: 223px; background-image: url('Neeraj_files/pycharm.png'); background-size: cover;">
+                <ul>
+                    <li>Slack</li>
+                    <li>
+                        <br>
+                    </li>
+                </ul>
+            </div>
+            <div class="item one" style="width: 547px; height: 152px; background-image: url('Neeraj_files/pycharm.png'); background-size: cover;">
+                <h4><i title="Services &amp; Tools"></i></h4>
+                <ul>
+                    <li>
+                        <span style=""><span style=""><font style="font-size: 14.4px;" color="#000000">&nbsp;</font><font color="#abbaab" style="font-size: 1.5rem;">PYCHARM</font></span><span style="font-size: 1.5rem; color: white;">&nbsp;</span></span>
+                    </li>
+                </ul>
+            </div>
+            <div class="item two" style="width: 290px; grid-area: 5 / 3 / 10 / auto; height: 114px; position: relative; top: 61px; background-image: url('Neeraj_files/fedora.png'); background-size: cover;">
+                <p>TERMINAL</p>
+                <div>
+</div>
+            </div>
+        </div>
+        <!-- Services & Tools -->
+        <!-- IDE & Environment -->
+        <!-- <div id="container5"> -->
+    </div>
+    <div id="container1" class="containerA4 pinegrow-ui-helper-relative" style="margin-top: -1361px; margin-left: 815px;">
+        <div class="item one" style="height: 186; width: 414px; padding-bottom: 3px; margin-bottom: 7px; margin-top: 20px; padding-right: 0px; margin-left: -43px; background-image: url('Neeraj_files/kicad.png'); background-size: cover;">
+            <h4><i title="Certifications">A4&nbsp;</i></h4>
+            <ul>
+                <li>&nbsp;</li>
+                <li style="color: #a117b0;">KICAD</li>
+            </ul>
+        </div>
+        <div class="item two" style="width: 419px; padding-left: 0px; margin: 46px -2px -58px -29px; background-image: url('Neeraj_files/css.png'); background-attachment: local; background-position: initial; background-size: cover;">
+            <ul>
+                <li>CSS</li>
+            </ul>
+        </div>
+        <!-- <div class="item three"> -->
+        <!-- </div> -->
+    </div>
+    <!-- Cloud Provider -->
+    <div id="container6" class="containerA11 containerA7" style="bottom: -1130px; margin-top: 737px; margin-left: 332px;">
+        <div class="item one" style="background-image: url('Neeraj_files/aws.png'); background-size: cover;">
+            <h4><i title="Cloud Provider"></i> Cloud Provider</h4>
+            <ul>
+                <li>AWS&nbsp; A8</li>
+            </ul>
+        </div>
+        <div class="item two" style="background-image: url('Neeraj_files/google-cloud.png'); background-size: cover;">
+            <ul>
+                <li style="color: #4f9c66;">Google Cloud</li>
+                <!-- <li>IBM Cloud</li> -->
+            </ul>
+        </div>
+    </div>
+    <!-- Mobile -->
+    <div id="container7" class="containerA8" style="right: 1238px; bottom: -774px; margin-left: 333px; margin-top: -117px;">
+        <div class="item one" style="height: 103px; background-image: url('Neeraj_files/solidworks.png'); background-attachment: local; background-size: cover;">
+            <!-- <h4><i class="topic"></i> SolidWorks </h4> -->
+            <ul>
+                <li style="color: #380c44;">SolidWorks A9</li>
+            </ul>
+        </div>
+        <div class="item two" style="left: 35px; background-image: url('Neeraj_files/fusion.png'); color: #743a3a;">
+            <ul>
+                <li style="color: #000000;">fusion</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Operating System -->
+    <div id="container8" class="containerA10" style="margin-top: 33569px; margin-left: 340px;">
+        <div class="item one" style="height: 253px; background-image: url('Neeraj_files/ubuntu.png');">
+            <h4><i title="Operating System"></i> Operating System</h4>
+            <ul>
+                <li>&nbsp;</li>
+                <li>Ubuntu&nbsp; A10</li>
+            </ul>
+        </div>
+        <div class="item two" style="background-image: url('Neeraj_files/kali.png'); background-size: cover;">
+            <ul>
+                <li>Kali Linux</li>
+                <li>&nbsp;</li>
+            </ul>
+        </div>
+        <div class="item three" style="background-image: url('Neeraj_files/android.gif'); background-size: contain; background-position: right top; background-attachment: scroll;">
+            <ul>
+                <li style="color: #e0c01a;">Android</li>
+                <li>&nbsp;</li>
+            </ul>
+        </div>
+        <div class="item four" style="background-image: url('Neeraj_files/fedora.png'); background-size: cover;">
+            <ul>
+                <li>Fedora</li>
+                <li>&nbsp;</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Certifications Column with Grid Layout -->
+    <!-- Certifications Column with Grid Layout -->
+    <!-- Certifications Column with Grid Layout -->
+</section>
+<section id="projects-section" class="section" style="display: none;">
+    <div id="projects-wrapper" class="scroll-x">
+        <div>
+            <div>
+                <h3> <a href="#" target="_blank">Aeromodelling Team – SAEINDIA DDC 2025 Participant</a> <br> <em>- VTOL & Regular Aircraft</em> </h3>
+                <details>
+                    <summary>Details</summary>
+                    <p>Participated in SAEINDIA DDC 2025 with a focus on designing and building VTOL and regular aircraft models. The project involved advanced aerodynamics and structural design for competition readiness.</p>
+                </details>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h3> <a href="#" target="_blank">Electronics Project</a> <br> <em>- MQ-6 & LM-358 LPG Gas Detector</em> </h3>
+                <details>
+                    <summary>Details</summary>
+                    <p>
+                                a) MQ-6 & LM-358 LPG Gas Detector implemented on PCB.<br>
+                                b) ESP32 Projects: <ul>
+                            <li>IoT-based LPG Gas System over SmartThings</li>
+                            <li>Soil Moisture Detection + Seed Sowing Rover</li>
+                            <li>Water Control System over IoT</li>
+                            <li>IoT-based Smart Light Control</li>
+                        </ul> </p>
+                </details>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h3> <a href="#" target="_blank">Website</a> <br> <em>- College's Hardware Workshop Management System</em> </h3>
+                <details>
+                    <summary>Details</summary>
+                    <p>Developed a web-based management system for the college's hardware workshop to streamline operations and improve efficiency.</p>
+                </details>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h3> <a href="#" target="_blank">Aeromodelling</a> <br> <em>- Drone Development Competition</em> </h3>
+                <details>
+                    <summary>Details</summary>
+                    <p> <ul>
+                            <li>Designed and built an RC aeroplane with a payload capacity of approximately 10 kg and a dropping mechanism.</li>
+                            <li>Developed a VTOL RC aeroplane capable of vertical takeoff without the need for an airstrip.</li>
+                        </ul> </p>
+                </details>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h3> <a href="#" target="_blank">LLM</a> <br> <em>- Book Recommendation System</em> </h3>
+                <details>
+                    <summary>Details</summary>
+                    <p>
+                                Built a book recommendation system using: <ul>
+                            <li>Vector search and zero-shot classification to categorize books into themes.</li>
+                            <li>LangChain frameworks for working with Facebook BART LLM.</li>
+                            <li>Sentiment and emotion analysis from book descriptions using PyCharm and Jupyter Notebook.</li>
+                        </ul> </p>
+                </details>
+            </div>
+        </div>
+        <div>
+            <div>
+                <h3> <a href="#" target="_blank">Microwave Imaging Technology</a> <br> <em>- Land Coverage Prediction</em> </h3>
+                <details>
+                    <summary>Details</summary>
+                    <p>
+                                Used Sentinel-1 SAR data and SNAP platform to: <ul>
+                            <li>Predict land coverage area using K-means clustering and backscatter signals.</li>
+                            <li>Applied Random Forest supervised classification for accuracy measurement.</li>
+                        </ul> </p>
+                </details>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="links-section" class="section" style="display: none;">
+    <h2>Links</h2>
+    <div>
+        <a href="mailto:neerajparekh118@gmail.com" description="Mail"><i class="titleenvelope" onmouseover="displayDescriptionOnLinks(&quot;fa-envelope&quot;);" aria-hidden="true"></i>
+                    mail</a>
+        <a href="www.linkedin.com/in/neeraj-parekh-np" description="Linkedin"><i class="fab fa-linkedin-in" aria-hidden="true"> </i>
+                    linkedin</a>
+        <a href="https://github.com/Neeraj-Parekh" description="Github"><i class="fab fa-github" aria-hidden="true"></i>
+                    github</a>
+        <a href="https://stackoverflow.com/users/28975346/neeraj-parekh" description="StackOverflow"><i class="fab fa-stack-overflow" aria-hidden="true"></i>
+                    stackoverflow</a>
+        <a href="https:// " description="Coming Soon"><i class="fab fa-Coming Soon" ;="" aria-hidden="true"> </i> Coming Soon </a>
+        <a href="https:// " description="Coming Soon"><i class="fab fa-twitter" aria-hidden="true"></i>
+                    Coming Soon </a>
+    </div>
+</section>
+<script src="./Neeraj_files/index.js.download"></script>
