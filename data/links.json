@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Email",
+    "url": "mailto:neerajparekh118@gmail.com",
+    "icon": "mail",
+    "description": "Get in touch via email"
+  },
+  {
+    "name": "LinkedIn",
+    "url": "https://www.linkedin.com/in/neeraj-parekh-np",
+    "icon": "linkedin",
+    "description": "Connect with me professionally"
+  },
+  {
+    "name": "GitHub",
+    "url": "https://github.com/Neeraj-Parekh",
+    "icon": "github",
+    "description": "Check out my code repositories"
+  },
+  {
+    "name": "StackOverflow",
+    "url": "https://stackoverflow.com/users/28975346/neeraj-parekh",
+    "icon": "stack-overflow",
+    "description": "See my contributions on StackOverflow"
+  },
+  {
+    "name": "Resume",
+    "url": "/assets/CV - NEERAJ PAREKH - IDEAL (2).pdf",
+    "icon": "file-text",
+    "description": "Download my resume"
+  }
+]

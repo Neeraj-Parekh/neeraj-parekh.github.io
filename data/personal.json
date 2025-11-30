@@ -1,0 +1,16 @@
+{
+  "name": "Neeraj Parekh",
+  "slogan": "ENTC engineer",
+  "email": "neerajparekh118@gmail.com",
+  "location": "Pune, Maharashtra",
+  "profession": "Junior Software Developer",
+  "rotatingTexts": ["Tech Explorer", "IoT Hobbyist", "Aspiring Engineer"],
+  "profileImage": "/assets/images/cropped_me.JPG",
+  "bio": "I am an aspiring Electronics and Telecommunication Engineer from Pune. I have a passion for designing and implementing innovative and efficient solutions in the tech and coding world. With experience in various engineering domains and a focus on telecommunication technologies, I am ready to tackle challenging projects.",
+  "values": "Integrity, discipline, teamwork, continuous learning, and a passion for technology and innovation.",
+  "history": "Started as an engineering student, developed skills in coding, electronics, and teamwork through academic and extracurricular projects.",
+  "accomplishments": "Participated in SAEINDIA DDC 2025 (VTOL & Regular Aircraft), developed a college hardware workshop management system, built IoT-based gas detection and automation projects.",
+  "hobbies": "My favorite hobbies include aeromodelling, IoT projects, and exploring new technologies in electronics and software development.",
+  "dreamJob": "My dream job is to work in a role where I can combine my engineering and coding skills to create impactful solutions, particularly in the fields of IoT and telecommunications.",
+  "education": "Bachelor of Engineering (ENTC), MITAOE, Pune. Certifications: Python for Data Science, Embedded C for ESP32, MATLAB, AWS Cloud Practitioner."
+}

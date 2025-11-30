@@ -1,0 +1,87 @@
+{
+  "title": "My Journey",
+  "subtitle": "Timeline of my experiences and milestones",
+  "defaultExpanded": true,
+  "items": [
+    {
+      "id": "about-me",
+      "title": "About Me",
+      "color": "#f21717",
+      "icon": "user",
+      "content": {
+        "type": "about",
+        "showPersonalInfo": true,
+        "fields": ["name", "location", "email", "profession"],
+        "showBio": true
+      }
+    },
+    {
+      "id": "values-goals",
+      "title": "Values & Goals",
+      "color": "#a4e90f",
+      "icon": "target",
+      "content": {
+        "type": "values",
+        "sections": [
+          {
+            "icon": "💡",
+            "title": "Values",
+            "field": "values"
+          },
+          {
+            "icon": "🎯",
+            "title": "Dream Job",
+            "field": "dreamJob"
+          }
+        ]
+      }
+    },
+    {
+      "id": "history",
+      "title": "History & Accomplishments",
+      "color": "#eb66d6",
+      "icon": "award",
+      "content": {
+        "type": "history",
+        "sections": [
+          {
+            "icon": "📚",
+            "title": "Education Background",
+            "field": "educationBackground"
+          },
+          {
+            "icon": "🏆",
+            "title": "Accomplishments",
+            "field": "accomplishments"
+          }
+        ]
+      }
+    },
+    {
+      "id": "favorites",
+      "title": "Favorites & Interests",
+      "color": "#66b3eb",
+      "icon": "heart",
+      "content": {
+        "type": "favorites",
+        "sections": [
+          {
+            "icon": "🎯",
+            "title": "Hobbies",
+            "field": "hobbies"
+          },
+          {
+            "icon": "📖",
+            "title": "Favorite Books",
+            "field": "favoriteBooks"
+          },
+          {
+            "icon": "🎬",
+            "title": "Favorite Movies",
+            "field": "favoriteMovies"
+          }
+        ]
+      }
+    }
+  ]
+}

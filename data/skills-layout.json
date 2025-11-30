@@ -1,0 +1,60 @@
+{
+  "layoutConfig": {
+    "description": "Configure the skills page layout here. Adjust grid columns, gaps, card sizes, etc.",
+    
+    "skillsSection": {
+      "gridColumns": "1",
+      "gap": "1.5rem",
+      "maxWidth": "320px",
+      "cardMinWidth": "280px"
+    },
+    
+    "certificationsSection": {
+      "description": "Certifications are organized into columns (A1, A2, A3, etc). Adjust which items go into which column.",
+      "columnsPerRow": 3,
+      "columnWidth": "200px",
+      "wideColumnWidth": "400px",
+      "cardGap": "0.75rem",
+      "rowGap": "1rem"
+    },
+    
+    "responsive": {
+      "desktop": {
+        "bodyWidth": "75%",
+        "maxWidth": "1400px",
+        "layout": "side-by-side"
+      },
+      "tablet": {
+        "bodyWidth": "85%",
+        "layout": "stacked"
+      },
+      "mobile": {
+        "bodyWidth": "95%",
+        "layout": "stacked",
+        "skillsGridColumns": 1
+      }
+    }
+  },
+  
+  "instructions": {
+    "howToAdjustLayout": [
+      "1. To change number of skill card columns on desktop, edit 'gridColumns' in skillsSection",
+      "2. To change certification card widths, edit 'columnWidth' and 'wideColumnWidth'",
+      "3. To reorganize certifications, edit the 'column' property in certifications.json",
+      "4. To add/remove certification columns per row, adjust 'columnsPerRow'",
+      "5. For custom styling, edit app/globals.css under 'Skills Page Layout' section"
+    ],
+    
+    "certificationColumns": {
+      "A1": "First column - Programming certifications (CPP, Dart, Bash)",
+      "A2": "Second column - Python, Embedded C, HTML",
+      "A3": "Wide column - MATLAB",
+      "A4": "KICAD, CSS",
+      "A5": "IDE tools - VS Code, Jupyter, PHP Storm",
+      "A6": "Office, PyCharm, Terminal",
+      "A8": "Cloud - AWS, Google Cloud",
+      "A9": "CAD - SolidWorks, Fusion",
+      "A10": "Operating Systems - Ubuntu, Kali, Android, Fedora"
+    }
+  }
+}

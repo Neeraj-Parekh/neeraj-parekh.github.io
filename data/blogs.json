@@ -1,0 +1,38 @@
+[
+  {
+    "id": "getting-started-iot",
+    "title": "Getting Started with IoT: A Beginner's Guide",
+    "excerpt": "Learn the fundamentals of Internet of Things and how to build your first connected device using ESP32 and Arduino...",
+    "platform": "Medium",
+    "url": "https://medium.com/@neerajparekh",
+    "embedUrl": "",
+    "date": "2025-11-15",
+    "readTime": "8 min read",
+    "tags": ["IoT", "ESP32", "Tutorial"],
+    "image": "/assets/images/iot.png"
+  },
+  {
+    "id": "python-data-science",
+    "title": "Python for Data Science: Essential Libraries",
+    "excerpt": "A comprehensive overview of Python libraries every data scientist should know - NumPy, Pandas, Matplotlib, and more...",
+    "platform": "Dev.to",
+    "url": "https://dev.to/neerajparekh",
+    "embedUrl": "",
+    "date": "2025-10-28",
+    "readTime": "12 min read",
+    "tags": ["Python", "Data Science", "Machine Learning"],
+    "image": "/assets/images/python.png"
+  },
+  {
+    "id": "embedded-systems-basics",
+    "title": "Embedded Systems: From Basics to Advanced",
+    "excerpt": "Understanding the core concepts of embedded systems programming with practical examples using C and Assembly...",
+    "platform": "Hashnode",
+    "url": "https://hashnode.com/@neerajparekh",
+    "embedUrl": "",
+    "date": "2025-09-20",
+    "readTime": "15 min read",
+    "tags": ["Embedded Systems", "C", "Hardware"],
+    "image": "/assets/images/microcontroller.png"
+  }
+]

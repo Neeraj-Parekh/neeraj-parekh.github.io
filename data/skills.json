@@ -1,0 +1,80 @@
+[
+  {
+    "title": "Programming Languages",
+    "icon": "/assets/icons/programming.svg",
+    "skills": [
+      { "name": "JavaScript", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", "iconType": "svg" },
+      { "name": "C++", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", "iconType": "svg" },
+      { "name": "Java", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", "iconType": "svg" },
+      { "name": "Python", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", "iconType": "svg" },
+      { "name": "Dart", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg", "iconType": "svg" },
+      { "name": "Embedded C", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg", "iconType": "svg" },
+      { "name": "BASH", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", "iconType": "svg" }
+    ]
+  },
+  {
+    "title": "Tools & Technologies",
+    "icon": "/assets/icons/tools.svg",
+    "skills": [
+      { "name": "MATLAB", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg", "iconType": "svg" },
+      { "name": "Multisim", "icon": "/assets/icons/icons8-multisim-64.png", "iconType": "png" },
+      { "name": "KiCad", "icon": "/assets/icons/kicad.png", "iconType": "png" },
+      { "name": "Brave", "icon": "/assets/icons/brave-browser-icon.png", "iconType": "png" },
+      { "name": "Proton", "icon": "/assets/icons/icons8-protonmail-48.png", "iconType": "png" },
+      { "name": "Wireshark", "icon": "/assets/icons/icons8-wireshark-64.png", "iconType": "png" }
+    ]
+  },
+  {
+    "title": "Web Development",
+    "icon": "/assets/icons/backend.svg",
+    "skills": [
+      { "name": "HTML", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg", "iconType": "svg" },
+      { "name": "CSS", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg", "iconType": "svg" },
+      { "name": "Django", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg", "iconType": "svg" }
+    ]
+  },
+  {
+    "title": "Services & Tools",
+    "icon": "/assets/icons/services.svg",
+    "skills": [
+      { "name": "GitHub", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg", "iconType": "svg" },
+      { "name": "Office 365", "icon": "/assets/icons/office-365-1.svg", "iconType": "svg" },
+      { "name": "Obsidian", "icon": "/assets/icons/2023_Obsidian_logo.svg.png", "iconType": "png" }
+    ]
+  },
+  {
+    "title": "IDE & Environment",
+    "icon": "/assets/icons/ide.svg",
+    "skills": [
+      { "name": "VSCode", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg", "iconType": "svg" },
+      { "name": "Jupyter Notebook", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg", "iconType": "svg" },
+      { "name": "PyCharm", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg", "iconType": "svg" },
+      { "name": "PhpStorm", "icon": "/assets/icons/Phpstorm.svg", "iconType": "svg" }
+    ]
+  },
+  {
+    "title": "Cloud Provider",
+    "icon": "/assets/icons/cloud.svg",
+    "skills": [
+      { "name": "AWS", "icon": "/assets/icons/amazon-web-services-1.svg", "iconType": "svg" }
+    ]
+  },
+  {
+    "title": "Avionics Simulation",
+    "icon": "/assets/icons/AERO.svg",
+    "skills": [
+      { "name": "CFD", "icon": "/assets/icons/cfd.png", "iconType": "png" }
+    ]
+  },
+  {
+    "title": "Operating System",
+    "icon": "/assets/icons/os.svg",
+    "skills": [
+      { "name": "Windows", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg", "iconType": "svg" },
+      { "name": "Kali Linux", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg", "iconType": "svg" },
+      { "name": "iOS", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg", "iconType": "svg" },
+      { "name": "Ubuntu", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg", "iconType": "svg" },
+      { "name": "Android", "icon": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg", "iconType": "svg" }
+    ]
+  }
+]

@@ -1,0 +1,75 @@
+[
+  {
+    "id": "aeromodelling-ddc",
+    "title": "Aeromodelling Team – SAEINDIA DDC 2025 Participant",
+    "subtitle": "VTOL & Regular Aircraft",
+    "description": "Participated in SAEINDIA DDC 2025 with a focus on designing and building VTOL and regular aircraft models.",
+    "details": [
+      "The project involved advanced aerodynamics and structural design for competition readiness.",
+      "Designed and built an RC aeroplane with a payload capacity of approximately 10 kg and a dropping mechanism.",
+      "Developed a VTOL RC aeroplane capable of vertical takeoff without the need for an airstrip."
+    ],
+    "tags": ["Aeromodelling", "VTOL", "SAEINDIA"]
+  },
+  {
+    "id": "electronics-project",
+    "title": "Electronics Project",
+    "subtitle": "MQ-6 & LM-358 LPG Gas Detector",
+    "description": "MQ-6 & LM-358 LPG Gas Detector implemented on PCB.",
+    "details": [
+      "MQ-6 & LM-358 LPG Gas Detector implemented on PCB",
+      "ESP32 Projects:",
+      "- IoT-based LPG Gas System over SmartThings",
+      "- Soil Moisture Detection + Seed Sowing Rover",
+      "- Water Control System over IoT",
+      "- IoT-based Smart Light Control"
+    ],
+    "tags": ["Electronics", "IoT", "ESP32"]
+  },
+  {
+    "id": "workshop-management",
+    "title": "Website",
+    "subtitle": "College's Hardware Workshop Management System",
+    "description": "Developed a web-based management system for the college's hardware workshop to streamline operations and improve efficiency.",
+    "details": [
+      "Implemented using Google sites.",
+      "Designed a user-friendly interface for easy navigation."
+    ],
+    "link": "https://sites.google.com/view/store-management-system-mitaoe",
+    "tags": ["Web Development", "Management System"]
+  },
+  {
+    "id": "drone-development",
+    "title": "Aeromodelling",
+    "subtitle": "Drone Development Competition",
+    "description": "Designed and built RC aeroplanes for competition.",
+    "details": [
+      "Designed and built an RC aeroplane with a payload capacity of approximately 10 kg and a dropping mechanism.",
+      "Developed a VTOL RC aeroplane capable of vertical takeoff without the need for an airstrip."
+    ],
+    "tags": ["Aeromodelling", "Drone", "Competition"]
+  },
+  {
+    "id": "book-recommendation",
+    "title": "LLM",
+    "subtitle": "Book Recommendation System",
+    "description": "Built a book recommendation system using modern AI/ML techniques.",
+    "details": [
+      "Vector search and zero-shot classification to categorize books into themes.",
+      "LangChain frameworks for working with Facebook BART LLM.",
+      "Sentiment and emotion analysis from book descriptions using PyCharm and Jupyter Notebook."
+    ],
+    "tags": ["Machine Learning", "LLM", "Python"]
+  },
+  {
+    "id": "microwave-imaging",
+    "title": "Microwave Imaging Technology",
+    "subtitle": "Land Coverage Prediction",
+    "description": "Used Sentinel-1 SAR data and SNAP platform for land analysis.",
+    "details": [
+      "Predict land coverage area using K-means clustering and backscatter signals.",
+      "Applied Random Forest supervised classification for accuracy measurement."
+    ],
+    "tags": ["Remote Sensing", "Machine Learning", "SAR"]
+  }
+]

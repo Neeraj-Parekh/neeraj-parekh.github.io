@@ -1,0 +1,228 @@
+[
+  {
+    "id": "a1-1",
+    "column": "A1",
+    "title": "CPP Programming",
+    "backgroundImage": "/assets/images/cpp-float.webp",
+    "color": "#ffffff",
+    "height": "203px",
+    "certificate": "/assets/certificates/cpp-certificate.pdf",
+    "certificateImage": "/assets/certificates/cpp-certificate.png",
+    "hasCertificate": true
+  },
+  {
+    "id": "a1-2",
+    "column": "A1",
+    "title": "DART FOR FLUTTER",
+    "backgroundImage": "/assets/images/dart.png",
+    "color": "#4a8bb4",
+    "height": "183px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a1-3",
+    "column": "A1",
+    "title": "BASH",
+    "backgroundImage": "/assets/images/bash.png",
+    "color": "#5d4646",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a2-1",
+    "column": "A2",
+    "title": "Python for Data Science & ML",
+    "backgroundImage": "/assets/images/python.png",
+    "color": "#dcc1c1",
+    "height": "200px",
+    "certificate": "/assets/certificates/python-ml-certificate.pdf",
+    "certificateImage": "/assets/certificates/python-ml-certificate.png",
+    "hasCertificate": true
+  },
+  {
+    "id": "a2-2",
+    "column": "A2",
+    "title": "EMBEDDED C FOR ESP32",
+    "backgroundImage": "/assets/images/embedded system c .png",
+    "color": "#62c55a",
+    "height": "183px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a2-3",
+    "column": "A2",
+    "title": "HTML",
+    "backgroundImage": "/assets/images/html.png",
+    "color": "#ffffff",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a3-1",
+    "column": "A3",
+    "title": "MATLAB",
+    "backgroundImage": "/assets/images/mathlab.png",
+    "color": "#ffffff",
+    "height": "200px",
+    "wide": true,
+    "certificate": "/assets/certificates/matlab-certificate.pdf",
+    "certificateImage": "/assets/certificates/matlab-certificate.png",
+    "hasCertificate": true
+  },
+  {
+    "id": "a4-1",
+    "column": "A4",
+    "title": "KICAD",
+    "backgroundImage": "/assets/images/kicad.png",
+    "color": "#a117b0",
+    "height": "186px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a4-2",
+    "column": "A4",
+    "title": "CSS",
+    "backgroundImage": "/assets/images/css.png",
+    "color": "#ffffff",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a5-1",
+    "column": "A5",
+    "title": "VS CODE",
+    "backgroundImage": "/assets/images/vscode.png",
+    "color": "#ffffff",
+    "height": "208px",
+    "wide": true,
+    "hasCertificate": false
+  },
+  {
+    "id": "a5-2",
+    "column": "A5",
+    "title": "JUPYTER NOTEBOOK",
+    "backgroundImage": "/assets/images/jupyter-notebook.png",
+    "color": "#000000",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a5-3",
+    "column": "A5",
+    "title": "Slack",
+    "backgroundImage": "/assets/images/proton.avif",
+    "color": "#ffffff",
+    "height": "100px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a5-4",
+    "column": "A5",
+    "title": "PHP STORM",
+    "backgroundImage": "/assets/images/phpstorm.png",
+    "color": "#ffffff",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a6-1",
+    "column": "A6",
+    "title": "Office 365",
+    "backgroundImage": "/assets/images/office.webp",
+    "color": "#46b6cc",
+    "height": "152px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a6-2",
+    "column": "A6",
+    "title": "PYCHARM",
+    "backgroundImage": "/assets/images/pycharm.png",
+    "color": "#abbaab",
+    "height": "152px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a6-3",
+    "column": "A6",
+    "title": "TERMINAL",
+    "backgroundImage": "/assets/images/fedora.png",
+    "color": "#ffffff",
+    "height": "114px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a7-1",
+    "column": "A8",
+    "title": "AWS",
+    "backgroundImage": "/assets/images/aws.png",
+    "color": "#ffffff",
+    "height": "150px",
+    "certificate": "/assets/certificates/aws-certificate.pdf",
+    "certificateImage": "/assets/certificates/aws-certificate.png",
+    "hasCertificate": true
+  },
+  {
+    "id": "a7-2",
+    "column": "A8",
+    "title": "Google Cloud",
+    "backgroundImage": "/assets/images/google-cloud.png",
+    "color": "#4f9c66",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a8-1",
+    "column": "A9",
+    "title": "SolidWorks",
+    "backgroundImage": "/assets/images/solidworks.png",
+    "color": "#380c44",
+    "height": "103px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a8-2",
+    "column": "A9",
+    "title": "Fusion 360",
+    "backgroundImage": "/assets/images/fusion.png",
+    "color": "#000000",
+    "height": "100px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a9-1",
+    "column": "A10",
+    "title": "Ubuntu",
+    "backgroundImage": "/assets/images/ubuntu.png",
+    "color": "#ffffff",
+    "height": "253px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a9-2",
+    "column": "A10",
+    "title": "Kali Linux",
+    "backgroundImage": "/assets/images/kali.png",
+    "color": "#ffffff",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a9-3",
+    "column": "A10",
+    "title": "Android",
+    "backgroundImage": "/assets/images/android.gif",
+    "color": "#e0c01a",
+    "height": "150px",
+    "hasCertificate": false
+  },
+  {
+    "id": "a9-4",
+    "column": "A10",
+    "title": "Fedora",
+    "backgroundImage": "/assets/images/fedora.png",
+    "color": "#ffffff",
+    "height": "150px",
+    "hasCertificate": false
+  }
+]
