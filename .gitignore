@@ -27,3 +27,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# local tools - Backup copy available on GitHub
+# These are standalone HTML editors, safe to commit

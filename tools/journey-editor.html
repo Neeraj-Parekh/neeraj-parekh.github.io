@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journey Editor - Neeraj Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+    }
+    .toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #16213e;
+      padding: 12px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 2px solid #0f3460;
+    }
+    .toolbar h1 { font-size: 1.2rem; color: #e94560; margin-right: auto; }
+    .toolbar button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-primary { background: #e94560; color: white; }
+    .btn-secondary { background: #0f3460; color: #eee; }
+    .btn-success { background: #00b894; color: white; }
+    .main-container {
+      display: flex;
+      margin-top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .editor-panel {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .sidebar {
+      width: 380px;
+      background: #16213e;
+      padding: 20px;
+      overflow-y: auto;
+      border-left: 2px solid #0f3460;
+    }
+    .sidebar h2 {
+      font-size: 1rem;
+      color: #e94560;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #0f3460;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #0f3460;
+      border-radius: 6px;
+      background: #1a1a2e;
+      color: #eee;
+      font-size: 0.9rem;
+    }
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .journey-preview {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .journey-header-preview {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      cursor: pointer;
+    }
+    .journey-header-preview h2 {
+      font-size: 1.5rem;
+      color: #333;
+    }
+    .journey-header-preview .chevron {
+      font-size: 1.2rem;
+      color: #666;
+      transition: transform 0.3s;
+    }
+    .journey-header-preview.collapsed .chevron {
+      transform: rotate(-90deg);
+    }
+    .journey-items {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .journey-item {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+    .journey-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .journey-item.selected {
+      border-color: #e94560;
+    }
+    .journey-item-header {
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      gap: 12px;
+    }
+    .journey-item-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+    .journey-item-title {
+      flex: 1;
+      font-weight: 600;
+      color: #333;
+    }
+    .journey-item-content {
+      padding: 0 15px 15px 40px;
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      border-left: 3px solid;
+      margin-left: 20px;
+    }
+    .journey-item .delete-btn {
+      background: #e94560;
+      border: none;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .journey-item:hover .delete-btn {
+      opacity: 1;
+    }
+    .add-item-btn {
+      border: 2px dashed #aaa;
+      background: transparent;
+      color: #666;
+      border-radius: 10px;
+      padding: 15px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .add-item-btn:hover {
+      border-color: #e94560;
+      color: #e94560;
+    }
+    .content-type-selector {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+    }
+    .content-type-btn {
+      padding: 6px 12px;
+      border: 1px solid #0f3460;
+      border-radius: 15px;
+      background: transparent;
+      color: #aaa;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    .content-type-btn.active {
+      background: #e94560;
+      border-color: #e94560;
+      color: white;
+    }
+    .sections-editor {
+      background: #0f3460;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .section-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: #1a1a2e;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+    .section-item input {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid #0f3460;
+      border-radius: 4px;
+      background: #16213e;
+      color: #eee;
+      font-size: 0.8rem;
+    }
+    .section-item button {
+      background: #e94560;
+      border: none;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .export-preview {
+      background: #0d1117;
+      border-radius: 8px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 0.7rem;
+      white-space: pre-wrap;
+      color: #58a6ff;
+      max-height: 400px;
+      overflow: auto;
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .modal {
+      background: #16213e;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal h2 { margin-bottom: 20px; color: #e94560; }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00b894;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 3000;
+    }
+    .color-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .color-row input[type="color"] {
+      width: 50px;
+      height: 36px;
+      padding: 0;
+      border: none;
+      cursor: pointer;
+    }
+    .color-row input[type="text"] {
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>🛤️ Journey Editor</h1>
+    <button class="btn-secondary" onclick="addItem()">+ Add Item</button>
+    <button class="btn-secondary" onclick="loadFromFile()">📂 Import</button>
+    <button class="btn-primary" onclick="exportConfig()">📤 Export</button>
+    <button class="btn-success" onclick="copyToClipboard()">📋 Copy JSON</button>
+  </div>
+
+  <div class="main-container">
+    <div class="editor-panel">
+      <div class="journey-preview">
+        <div class="journey-header-preview" onclick="togglePreview()">
+          <h2 id="journeyTitle">My Journey</h2>
+          <span class="chevron">▼</span>
+        </div>
+        <p id="journeySubtitle" style="color: #666; margin-bottom: 15px; font-size: 0.9rem;"></p>
+        <div class="journey-items" id="itemsContainer"></div>
+        <button class="add-item-btn" onclick="addItem()">+ Add Journey Item</button>
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <h2>Journey Settings</h2>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="inputTitle" value="My Journey" oninput="updateSettings()">
+      </div>
+      <div class="form-group">
+        <label>Subtitle</label>
+        <input type="text" id="inputSubtitle" value="Timeline of my experiences" oninput="updateSettings()">
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="inputExpanded" checked onchange="updateSettings()">
+          Default Expanded
+        </label>
+      </div>
+
+      <h2 style="margin-top: 25px;">Selected Item</h2>
+      <div id="itemEditor">
+        <p style="color: #666; font-size: 0.9rem;">Click an item to edit</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div class="modal-overlay" id="exportModal" style="display: none;">
+    <div class="modal">
+      <h2>Export journey.json</h2>
+      <div class="export-preview" id="exportPreview"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeExportModal()">Close</button>
+        <button class="btn-success" onclick="downloadJSON()">💾 Download</button>
+        <button class="btn-primary" onclick="copyExport()">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="handleImport(event)">
+
+  <script>
+    let journeyData = {
+      title: "My Journey",
+      subtitle: "Timeline of my experiences and milestones",
+      defaultExpanded: true,
+      items: [
+        {
+          id: "about-me",
+          title: "About Me",
+          color: "#f21717",
+          icon: "user",
+          content: {
+            type: "about",
+            showPersonalInfo: true,
+            fields: ["name", "location", "email", "profession"],
+            showBio: true
+          }
+        },
+        {
+          id: "values-goals",
+          title: "Values & Goals",
+          color: "#a4e90f",
+          icon: "target",
+          content: {
+            type: "values",
+            sections: [
+              { icon: "💡", title: "Values", field: "values" },
+              { icon: "🎯", title: "Dream Job", field: "dreamJob" }
+            ]
+          }
+        },
+        {
+          id: "history",
+          title: "History & Accomplishments",
+          color: "#eb66d6",
+          icon: "award",
+          content: {
+            type: "history",
+            sections: [
+              { icon: "📚", title: "Education Background", field: "educationBackground" },
+              { icon: "🏆", title: "Accomplishments", field: "accomplishments" }
+            ]
+          }
+        },
+        {
+          id: "favorites",
+          title: "Favorites & Interests",
+          color: "#66b3eb",
+          icon: "heart",
+          content: {
+            type: "favorites",
+            sections: [
+              { icon: "🎯", title: "Hobbies", field: "hobbies" },
+              { icon: "📖", title: "Favorite Books", field: "favoriteBooks" },
+              { icon: "🎬", title: "Favorite Movies", field: "favoriteMovies" }
+            ]
+          }
+        }
+      ]
+    };
+
+    let selectedIndex = null;
+
+    function render() {
+      document.getElementById('journeyTitle').textContent = journeyData.title;
+      document.getElementById('journeySubtitle').textContent = journeyData.subtitle;
+
+      const container = document.getElementById('itemsContainer');
+      container.innerHTML = '';
+
+      journeyData.items.forEach((item, index) => {
+        const itemEl = document.createElement('div');
+        itemEl.className = `journey-item ${selectedIndex === index ? 'selected' : ''}`;
+        itemEl.onclick = () => selectItem(index);
+
+        itemEl.innerHTML = `
+          <div class="journey-item-header">
+            <div class="journey-item-dot" style="background: ${item.color}"></div>
+            <span class="journey-item-title">${item.title}</span>
+            <button class="delete-btn" onclick="event.stopPropagation(); deleteItem(${index})">×</button>
+          </div>
+          <div class="journey-item-content" style="border-color: ${item.color}">
+            Type: ${item.content.type}<br>
+            ${item.content.sections ? `Sections: ${item.content.sections.map(s => s.title).join(', ')}` : ''}
+          </div>
+        `;
+
+        container.appendChild(itemEl);
+      });
+    }
+
+    function selectItem(index) {
+      selectedIndex = index;
+      const item = journeyData.items[index];
+
+      document.getElementById('itemEditor').innerHTML = `
+        <div class="form-group">
+          <label>ID</label>
+          <input type="text" value="${item.id}" onchange="updateItem('id', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" value="${item.title}" onchange="updateItem('title', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Color</label>
+          <div class="color-row">
+            <input type="color" value="${item.color}" onchange="updateItem('color', this.value)">
+            <input type="text" value="${item.color}" onchange="updateItem('color', this.value)">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Icon</label>
+          <select onchange="updateItem('icon', this.value)">
+            <option value="user" ${item.icon === 'user' ? 'selected' : ''}>User</option>
+            <option value="target" ${item.icon === 'target' ? 'selected' : ''}>Target</option>
+            <option value="award" ${item.icon === 'award' ? 'selected' : ''}>Award</option>
+            <option value="heart" ${item.icon === 'heart' ? 'selected' : ''}>Heart</option>
+            <option value="book" ${item.icon === 'book' ? 'selected' : ''}>Book</option>
+            <option value="briefcase" ${item.icon === 'briefcase' ? 'selected' : ''}>Briefcase</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Content Type</label>
+          <div class="content-type-selector">
+            ${['about', 'values', 'history', 'favorites', 'custom'].map(type => `
+              <button class="content-type-btn ${item.content.type === type ? 'active' : ''}" 
+                      onclick="changeContentType('${type}')">${type}</button>
+            `).join('')}
+          </div>
+        </div>
+        ${renderSectionsEditor(item)}
+        <button class="btn-primary" style="width: 100%; margin-top: 15px; background: #e94560;" 
+                onclick="deleteItem(${index})">🗑️ Delete Item</button>
+      `;
+
+      render();
+    }
+
+    function renderSectionsEditor(item) {
+      if (!item.content.sections) return '';
+      
+      return `
+        <div class="form-group">
+          <label>Sections</label>
+          <div class="sections-editor">
+            ${item.content.sections.map((section, i) => `
+              <div class="section-item">
+                <input type="text" value="${section.icon}" placeholder="Icon" style="width: 50px;" 
+                       onchange="updateSection(${i}, 'icon', this.value)">
+                <input type="text" value="${section.title}" placeholder="Title" 
+                       onchange="updateSection(${i}, 'title', this.value)">
+                <input type="text" value="${section.field}" placeholder="Field" 
+                       onchange="updateSection(${i}, 'field', this.value)">
+                <button onclick="deleteSection(${i})">×</button>
+              </div>
+            `).join('')}
+            <button class="add-item-btn" style="padding: 8px; font-size: 0.8rem;" onclick="addSection()">+ Add Section</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function updateItem(prop, value) {
+      if (selectedIndex !== null) {
+        journeyData.items[selectedIndex][prop] = value;
+        render();
+      }
+    }
+
+    function changeContentType(type) {
+      if (selectedIndex !== null) {
+        const item = journeyData.items[selectedIndex];
+        item.content.type = type;
+        
+        if (type === 'about') {
+          item.content = { type, showPersonalInfo: true, fields: ["name", "location", "email", "profession"], showBio: true };
+        } else if (!item.content.sections) {
+          item.content.sections = [{ icon: "📌", title: "Section 1", field: "field1" }];
+        }
+        
+        selectItem(selectedIndex);
+      }
+    }
+
+    function updateSection(index, prop, value) {
+      if (selectedIndex !== null) {
+        journeyData.items[selectedIndex].content.sections[index][prop] = value;
+      }
+    }
+
+    function addSection() {
+      if (selectedIndex !== null) {
+        if (!journeyData.items[selectedIndex].content.sections) {
+          journeyData.items[selectedIndex].content.sections = [];
+        }
+        journeyData.items[selectedIndex].content.sections.push({
+          icon: "📌",
+          title: "New Section",
+          field: "newField"
+        });
+        selectItem(selectedIndex);
+      }
+    }
+
+    function deleteSection(index) {
+      if (selectedIndex !== null) {
+        journeyData.items[selectedIndex].content.sections.splice(index, 1);
+        selectItem(selectedIndex);
+      }
+    }
+
+    function deleteItem(index) {
+      journeyData.items.splice(index, 1);
+      selectedIndex = null;
+      document.getElementById('itemEditor').innerHTML = '<p style="color: #666;">Click an item to edit</p>';
+      render();
+    }
+
+    function addItem() {
+      const newId = `item-${Date.now()}`;
+      journeyData.items.push({
+        id: newId,
+        title: "New Item",
+        color: "#667eea",
+        icon: "user",
+        content: {
+          type: "custom",
+          sections: [{ icon: "📌", title: "Section", field: "field" }]
+        }
+      });
+      render();
+      selectItem(journeyData.items.length - 1);
+    }
+
+    function updateSettings() {
+      journeyData.title = document.getElementById('inputTitle').value;
+      journeyData.subtitle = document.getElementById('inputSubtitle').value;
+      journeyData.defaultExpanded = document.getElementById('inputExpanded').checked;
+      render();
+    }
+
+    function togglePreview() {
+      document.querySelector('.journey-header-preview').classList.toggle('collapsed');
+      document.getElementById('itemsContainer').style.display = 
+        document.querySelector('.journey-header-preview').classList.contains('collapsed') ? 'none' : 'flex';
+    }
+
+    function exportConfig() {
+      document.getElementById('exportPreview').textContent = JSON.stringify(journeyData, null, 2);
+      document.getElementById('exportModal').style.display = 'flex';
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').style.display = 'none';
+    }
+
+    function copyExport() {
+      navigator.clipboard.writeText(JSON.stringify(journeyData, null, 2));
+      showToast('Copied!');
+      closeExportModal();
+    }
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(JSON.stringify(journeyData, null, 2));
+      showToast('JSON copied!');
+    }
+
+    function downloadJSON() {
+      const blob = new Blob([JSON.stringify(journeyData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'journey.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function loadFromFile() {
+      document.getElementById('fileInput').click();
+    }
+
+    function handleImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          journeyData = JSON.parse(e.target.result);
+          document.getElementById('inputTitle').value = journeyData.title || '';
+          document.getElementById('inputSubtitle').value = journeyData.subtitle || '';
+          document.getElementById('inputExpanded').checked = journeyData.defaultExpanded !== false;
+          render();
+          showToast('Imported!');
+        } catch (err) {
+          alert('Invalid JSON');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Initialize
+    document.getElementById('inputTitle').value = journeyData.title;
+    document.getElementById('inputSubtitle').value = journeyData.subtitle;
+    render();
+  </script>
+</body>
+</html>

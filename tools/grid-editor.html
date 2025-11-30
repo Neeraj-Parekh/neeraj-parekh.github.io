@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certification Grid Editor - Neeraj Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+    }
+
+    .toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #16213e;
+      padding: 12px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 2px solid #0f3460;
+      flex-wrap: wrap;
+    }
+
+    .toolbar h1 {
+      font-size: 1.2rem;
+      color: #e94560;
+      margin-right: auto;
+    }
+
+    .toolbar button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: #e94560;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #ff6b6b;
+    }
+
+    .btn-secondary {
+      background: #0f3460;
+      color: #eee;
+    }
+
+    .btn-secondary:hover {
+      background: #1a4a7a;
+    }
+
+    .btn-success {
+      background: #00b894;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #00d9a5;
+    }
+
+    .main-container {
+      display: flex;
+      margin-top: 70px;
+      height: calc(100vh - 70px);
+    }
+
+    .editor-panel {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .sidebar {
+      width: 350px;
+      background: #16213e;
+      padding: 20px;
+      overflow-y: auto;
+      border-left: 2px solid #0f3460;
+    }
+
+    .sidebar h2 {
+      font-size: 1rem;
+      color: #e94560;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #0f3460;
+    }
+
+    .sidebar h3 {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin: 15px 0 10px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 4px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #0f3460;
+      border-radius: 6px;
+      background: #1a1a2e;
+      color: #eee;
+      font-size: 0.9rem;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #e94560;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-row .form-group {
+      flex: 1;
+    }
+
+    .color-preview {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      border: 2px solid #0f3460;
+      cursor: pointer;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox-group input {
+      width: auto;
+    }
+
+    /* Grid Preview */
+    .grid-preview {
+      background: #f5f5f5;
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 600px;
+    }
+
+    .cert-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 10px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 8px;
+      border: 2px dashed transparent;
+      transition: all 0.2s;
+    }
+
+    .cert-row:hover {
+      border-color: #e94560;
+    }
+
+    .cert-row.drag-over {
+      border-color: #00b894;
+      background: rgba(0, 184, 148, 0.1);
+    }
+
+    .cert-column {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 150px;
+      padding: 8px;
+      background: rgba(0,0,0,0.05);
+      border-radius: 6px;
+    }
+
+    .cert-column.wide {
+      min-width: 280px;
+    }
+
+    .cert-card {
+      position: relative;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background-size: cover;
+      background-position: center;
+      cursor: move;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .cert-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    .cert-card.selected {
+      outline: 3px solid #e94560;
+      outline-offset: 2px;
+    }
+
+    .cert-card.dragging {
+      opacity: 0.5;
+    }
+
+    .cert-card span {
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      font-size: 0.9rem;
+    }
+
+    .cert-card .cert-indicator {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #ffd700, #ffaa00);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cert-card .resize-handle {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 16px;
+      height: 16px;
+      background: rgba(233, 69, 96, 0.8);
+      border-radius: 3px;
+      cursor: se-resize;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .cert-card:hover .resize-handle {
+      opacity: 1;
+    }
+
+    .row-label {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      font-size: 0.75rem;
+      color: #666;
+      padding: 5px;
+      background: #ddd;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+
+    .add-row-btn,
+    .add-column-btn,
+    .add-card-btn {
+      border: 2px dashed #aaa;
+      background: transparent;
+      color: #666;
+      border-radius: 8px;
+      padding: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.8rem;
+    }
+
+    .add-row-btn:hover,
+    .add-column-btn:hover,
+    .add-card-btn:hover {
+      border-color: #e94560;
+      color: #e94560;
+    }
+
+    .add-card-btn {
+      width: 100%;
+      min-height: 60px;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+
+    .modal {
+      background: #16213e;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal h2 {
+      margin-bottom: 20px;
+      color: #e94560;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+
+    /* Export Preview */
+    .export-preview {
+      background: #0d1117;
+      border-radius: 8px;
+      padding: 15px;
+      max-height: 300px;
+      overflow: auto;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      white-space: pre-wrap;
+      color: #58a6ff;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00b894;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      animation: slideIn 0.3s ease;
+      z-index: 3000;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(100px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .instructions {
+      background: #0f3460;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .instructions ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 20px;
+      height: 20px;
+      background: #e94560;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cert-card:hover .delete-btn {
+      opacity: 1;
+    }
+
+    .os-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>🎨 Certification Grid Editor</h1>
+    <button class="btn-secondary" onclick="addRow()">+ Add Row</button>
+    <button class="btn-secondary" onclick="addCard()">+ Add Card</button>
+    <button class="btn-secondary" onclick="loadFromFile()">📂 Import JSON</button>
+    <button class="btn-primary" onclick="exportConfig()">📤 Export Config</button>
+    <button class="btn-success" onclick="copyToClipboard()">📋 Copy JSON</button>
+  </div>
+
+  <div class="main-container">
+    <div class="editor-panel">
+      <div class="instructions">
+        <strong>📝 Instructions:</strong>
+        <ul>
+          <li><strong>Click</strong> a card to select and edit it in the sidebar</li>
+          <li><strong>Drag</strong> cards to reorder them within or between columns</li>
+          <li><strong>Resize</strong> by dragging the bottom-right corner handle</li>
+          <li><strong>Export</strong> your config and share it with me to update the website</li>
+        </ul>
+      </div>
+      <div class="grid-preview" id="gridPreview">
+        <!-- Grid will be rendered here -->
+      </div>
+    </div>
+
+    <div class="sidebar">
+      <h2>Card Properties</h2>
+      <div id="cardEditor">
+        <p style="color: #666; font-size: 0.9rem;">Select a card to edit its properties</p>
+      </div>
+
+      <h2 style="margin-top: 30px;">Grid Settings</h2>
+      <div class="form-group">
+        <label>Card Gap (px)</label>
+        <input type="number" id="cardGap" value="8" onchange="updateGridSettings()">
+      </div>
+      <div class="form-group">
+        <label>Row Gap (px)</label>
+        <input type="number" id="rowGap" value="12" onchange="updateGridSettings()">
+      </div>
+      <div class="form-group">
+        <label>Column Min Width (px)</label>
+        <input type="number" id="columnWidth" value="150" onchange="updateGridSettings()">
+      </div>
+      <div class="form-group">
+        <label>Wide Column Width (px)</label>
+        <input type="number" id="wideColumnWidth" value="280" onchange="updateGridSettings()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Card Modal -->
+  <div class="modal-overlay" id="addCardModal" style="display: none;">
+    <div class="modal">
+      <h2>Add New Card</h2>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" id="newCardTitle" placeholder="e.g., React">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Row</label>
+          <select id="newCardRow"></select>
+        </div>
+        <div class="form-group">
+          <label>Column</label>
+          <select id="newCardColumn">
+            <option value="1">Column 1</option>
+            <option value="2">Column 2</option>
+            <option value="3">Column 3</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Background Image URL</label>
+        <input type="text" id="newCardImage" placeholder="/assets/images/...">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Text Color</label>
+          <input type="color" id="newCardColor" value="#ffffff">
+        </div>
+        <div class="form-group">
+          <label>Height (px)</label>
+          <input type="number" id="newCardHeight" value="120">
+        </div>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="newCardHasCert">
+        <label for="newCardHasCert">Has Certificate</label>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeAddModal()">Cancel</button>
+        <button class="btn-primary" onclick="confirmAddCard()">Add Card</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div class="modal-overlay" id="exportModal" style="display: none;">
+    <div class="modal">
+      <h2>Export Configuration</h2>
+      <p style="margin-bottom: 15px; color: #aaa;">Copy this JSON and share it to update the website:</p>
+      <div class="export-preview" id="exportPreview"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeExportModal()">Close</button>
+        <button class="btn-success" onclick="downloadJSON()">💾 Download JSON</button>
+        <button class="btn-primary" onclick="copyExport()">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="handleFileImport(event)">
+
+  <script>
+    // Initial data structure - will be loaded from certifications.json
+    let gridData = {
+      settings: {
+        cardGap: 8,
+        rowGap: 12,
+        columnWidth: 150,
+        wideColumnWidth: 280
+      },
+      rows: [
+        {
+          id: 'row1',
+          columns: [
+            { id: 'A1', wide: false, cards: [] },
+            { id: 'A2', wide: false, cards: [] },
+            { id: 'A3', wide: true, cards: [] }
+          ]
+        },
+        {
+          id: 'row2',
+          columns: [
+            { id: 'A4', wide: false, cards: [] },
+            { id: 'A5', wide: true, cards: [] },
+            { id: 'A6', wide: false, cards: [] }
+          ]
+        },
+        {
+          id: 'row3',
+          columns: [
+            { id: 'A8', wide: false, cards: [] },
+            { id: 'A9', wide: false, cards: [] }
+          ]
+        },
+        {
+          id: 'row4',
+          columns: [
+            { id: 'A10', wide: false, isOsGrid: true, cards: [] }
+          ]
+        }
+      ]
+    };
+
+    let selectedCard = null;
+    let draggedCard = null;
+
+    // Load existing certifications data
+    const existingCertifications = [
+      { id: "cpp", column: "A1", title: "CPP Programming", backgroundImage: "/assets/images/cpp-float.webp", color: "#eb66d6", height: "200px", hasCertificate: true },
+      { id: "dart", column: "A2", title: "DART FOR FLUTTER", backgroundImage: "/assets/images/dart.png", color: "#ffffff", height: "180px", hasCertificate: false },
+      { id: "bash", column: "A2", title: "#!/bin/bash", backgroundImage: "/assets/images/bash.png", color: "#66eb87", height: "140px", hasCertificate: false },
+      { id: "python-ml", column: "A2", title: "Python for Data", backgroundImage: "/assets/images/python.png", color: "#ffcc00", height: "140px", hasCertificate: true },
+      { id: "matlab", column: "A3", title: "MATLAB", backgroundImage: "/assets/images/mathlab.png", color: "#ffffff", height: "470px", wide: true, hasCertificate: true },
+      { id: "kicad", column: "A4", title: "KiCad", backgroundImage: "/assets/images/kicad.png", color: "#ffffff", height: "130px", hasCertificate: false },
+      { id: "css", column: "A4", title: "CSS", backgroundImage: "/assets/images/css.png", color: "#ffffff", height: "130px", hasCertificate: false },
+      { id: "vscode", column: "A5", title: "VS Code", backgroundImage: "/assets/images/vscode.png", color: "#ffffff", height: "90px", wide: true, hasCertificate: false },
+      { id: "jupyter", column: "A5", title: "Jupyter", backgroundImage: "/assets/images/jupyter-notebook.png", color: "#ffffff", height: "90px", wide: true, hasCertificate: false },
+      { id: "git", column: "A5", title: "Git", backgroundImage: "/assets/images/github.png", color: "#ffffff", height: "90px", wide: true, hasCertificate: false },
+      { id: "office", column: "A6", title: "Office 365", backgroundImage: "/assets/images/office.webp", color: "#ffffff", height: "90px", hasCertificate: false },
+      { id: "pycharm", column: "A6", title: "PyCharm", backgroundImage: "/assets/images/pycharm.png", color: "#ffffff", height: "90px", hasCertificate: false },
+      { id: "terminal", column: "A6", title: "Terminal", backgroundImage: "/assets/images/bash (2).png", color: "#00ff00", height: "90px", hasCertificate: false },
+      { id: "aws", column: "A8", title: "AWS", backgroundImage: "/assets/images/aws.png", color: "#ff9900", height: "130px", hasCertificate: true },
+      { id: "gcloud", column: "A8", title: "Google Cloud", backgroundImage: "/assets/images/google-cloud.png", color: "#4285f4", height: "130px", hasCertificate: false },
+      { id: "solidworks", column: "A9", title: "SolidWorks", backgroundImage: "/assets/images/solidworks.png", color: "#ff0000", height: "130px", hasCertificate: false },
+      { id: "fusion", column: "A9", title: "Fusion 360", backgroundImage: "/assets/images/fusion.png", color: "#ff6b00", height: "130px", hasCertificate: false },
+      { id: "ubuntu", column: "A10", title: "Ubuntu", backgroundImage: "/assets/images/ubuntu.png", color: "#dd4814", height: "80px", hasCertificate: false },
+      { id: "kali", column: "A10", title: "Kali", backgroundImage: "/assets/images/kali.png", color: "#367bf0", height: "80px", hasCertificate: false },
+      { id: "android", column: "A10", title: "Android", backgroundImage: "/assets/images/android.gif", color: "#3ddc84", height: "80px", hasCertificate: false },
+      { id: "fedora", column: "A10", title: "Fedora", backgroundImage: "/assets/images/fedora.png", color: "#294172", height: "80px", hasCertificate: false }
+    ];
+
+    // Initialize grid with existing data
+    function initializeGrid() {
+      existingCertifications.forEach(cert => {
+        gridData.rows.forEach(row => {
+          row.columns.forEach(col => {
+            if (col.id === cert.column) {
+              col.cards.push({
+                id: cert.id,
+                title: cert.title,
+                backgroundImage: cert.backgroundImage,
+                color: cert.color,
+                height: parseInt(cert.height),
+                wide: cert.wide || false,
+                hasCertificate: cert.hasCertificate,
+                certificate: cert.certificate || '',
+                certificateImage: cert.certificateImage || ''
+              });
+            }
+          });
+        });
+      });
+      renderGrid();
+    }
+
+    function renderGrid() {
+      const preview = document.getElementById('gridPreview');
+      preview.innerHTML = '';
+
+      gridData.rows.forEach((row, rowIndex) => {
+        const rowEl = document.createElement('div');
+        rowEl.className = 'cert-row';
+        rowEl.dataset.rowIndex = rowIndex;
+        rowEl.ondragover = (e) => handleDragOver(e, rowEl);
+        rowEl.ondrop = (e) => handleDrop(e, rowIndex);
+        rowEl.ondragleave = () => rowEl.classList.remove('drag-over');
+
+        const label = document.createElement('div');
+        label.className = 'row-label';
+        label.textContent = `Row ${rowIndex + 1}`;
+        rowEl.appendChild(label);
+
+        row.columns.forEach((col, colIndex) => {
+          const colEl = document.createElement('div');
+          colEl.className = `cert-column ${col.wide ? 'wide' : ''} ${col.isOsGrid ? 'os-grid-container' : ''}`;
+          colEl.dataset.colId = col.id;
+
+          if (col.isOsGrid) {
+            const osGrid = document.createElement('div');
+            osGrid.className = 'os-grid';
+            col.cards.forEach(card => {
+              osGrid.appendChild(createCardElement(card, rowIndex, colIndex));
+            });
+            colEl.appendChild(osGrid);
+          } else {
+            col.cards.forEach(card => {
+              colEl.appendChild(createCardElement(card, rowIndex, colIndex));
+            });
+          }
+
+          // Add card button
+          const addBtn = document.createElement('button');
+          addBtn.className = 'add-card-btn';
+          addBtn.textContent = '+ Add Card';
+          addBtn.onclick = () => openAddModal(rowIndex, colIndex);
+          colEl.appendChild(addBtn);
+
+          rowEl.appendChild(colEl);
+        });
+
+        // Add column button
+        const addColBtn = document.createElement('button');
+        addColBtn.className = 'add-column-btn';
+        addColBtn.textContent = '+ Col';
+        addColBtn.onclick = () => addColumn(rowIndex);
+        addColBtn.style.alignSelf = 'stretch';
+        addColBtn.style.minWidth = '50px';
+        rowEl.appendChild(addColBtn);
+
+        preview.appendChild(rowEl);
+      });
+
+      // Add row button
+      const addRowBtn = document.createElement('button');
+      addRowBtn.className = 'add-row-btn';
+      addRowBtn.textContent = '+ Add New Row';
+      addRowBtn.style.width = '100%';
+      addRowBtn.style.marginTop = '10px';
+      addRowBtn.onclick = addRow;
+      preview.appendChild(addRowBtn);
+    }
+
+    function createCardElement(card, rowIndex, colIndex) {
+      const cardEl = document.createElement('div');
+      cardEl.className = `cert-card ${selectedCard?.id === card.id ? 'selected' : ''}`;
+      cardEl.style.backgroundImage = `url(${card.backgroundImage})`;
+      cardEl.style.height = `${card.height}px`;
+      cardEl.style.minHeight = `${card.height}px`;
+      cardEl.draggable = true;
+      cardEl.dataset.cardId = card.id;
+
+      cardEl.ondragstart = (e) => handleDragStart(e, card, rowIndex, colIndex);
+      cardEl.ondragend = handleDragEnd;
+      cardEl.onclick = (e) => {
+        e.stopPropagation();
+        selectCard(card, rowIndex, colIndex);
+      };
+
+      // Delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.innerHTML = '×';
+      deleteBtn.onclick = (e) => {
+        e.stopPropagation();
+        deleteCard(card.id, rowIndex, colIndex);
+      };
+      cardEl.appendChild(deleteBtn);
+
+      // Certificate indicator
+      if (card.hasCertificate) {
+        const indicator = document.createElement('div');
+        indicator.className = 'cert-indicator';
+        indicator.innerHTML = '⭐';
+        indicator.style.fontSize = '10px';
+        cardEl.appendChild(indicator);
+      }
+
+      // Title
+      const title = document.createElement('span');
+      title.textContent = card.title;
+      title.style.color = card.color;
+      cardEl.appendChild(title);
+
+      // Resize handle
+      const handle = document.createElement('div');
+      handle.className = 'resize-handle';
+      handle.onmousedown = (e) => startResize(e, card, cardEl);
+      cardEl.appendChild(handle);
+
+      return cardEl;
+    }
+
+    function selectCard(card, rowIndex, colIndex) {
+      selectedCard = { ...card, rowIndex, colIndex };
+      document.querySelectorAll('.cert-card').forEach(el => el.classList.remove('selected'));
+      document.querySelector(`[data-card-id="${card.id}"]`)?.classList.add('selected');
+      renderCardEditor();
+    }
+
+    function renderCardEditor() {
+      if (!selectedCard) return;
+
+      const editor = document.getElementById('cardEditor');
+      editor.innerHTML = `
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="editTitle" value="${selectedCard.title}" onchange="updateCard('title', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Background Image</label>
+          <input type="text" id="editImage" value="${selectedCard.backgroundImage}" onchange="updateCard('backgroundImage', this.value)">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Text Color</label>
+            <input type="color" id="editColor" value="${selectedCard.color}" onchange="updateCard('color', this.value)">
+          </div>
+          <div class="form-group">
+            <label>Height (px)</label>
+            <input type="number" id="editHeight" value="${selectedCard.height}" onchange="updateCard('height', parseInt(this.value))">
+          </div>
+        </div>
+        <div class="checkbox-group" style="margin: 10px 0;">
+          <input type="checkbox" id="editWide" ${selectedCard.wide ? 'checked' : ''} onchange="updateCard('wide', this.checked)">
+          <label for="editWide">Wide Card</label>
+        </div>
+        <div class="checkbox-group" style="margin: 10px 0;">
+          <input type="checkbox" id="editHasCert" ${selectedCard.hasCertificate ? 'checked' : ''} onchange="updateCard('hasCertificate', this.checked)">
+          <label for="editHasCert">Has Certificate ⭐</label>
+        </div>
+        <div id="certFields" style="${selectedCard.hasCertificate ? '' : 'display: none;'}">
+          <div class="form-group">
+            <label>Certificate PDF Path</label>
+            <input type="text" value="${selectedCard.certificate || ''}" onchange="updateCard('certificate', this.value)" placeholder="/assets/certificates/...">
+          </div>
+          <div class="form-group">
+            <label>Certificate Image Path</label>
+            <input type="text" value="${selectedCard.certificateImage || ''}" onchange="updateCard('certificateImage', this.value)" placeholder="/assets/certificates/...">
+          </div>
+        </div>
+        <button class="btn-primary" style="width: 100%; margin-top: 15px;" onclick="deleteSelectedCard()">🗑️ Delete Card</button>
+      `;
+    }
+
+    function updateCard(property, value) {
+      if (!selectedCard) return;
+
+      const row = gridData.rows[selectedCard.rowIndex];
+      const col = row.columns.find(c => c.cards.some(card => card.id === selectedCard.id));
+      const card = col.cards.find(c => c.id === selectedCard.id);
+
+      if (card) {
+        card[property] = value;
+        selectedCard[property] = value;
+
+        if (property === 'hasCertificate') {
+          document.getElementById('certFields').style.display = value ? '' : 'none';
+        }
+
+        renderGrid();
+        // Re-select the card
+        document.querySelector(`[data-card-id="${selectedCard.id}"]`)?.classList.add('selected');
+      }
+    }
+
+    function deleteCard(cardId, rowIndex, colIndex) {
+      const col = gridData.rows[rowIndex].columns[colIndex];
+      col.cards = col.cards.filter(c => c.id !== cardId);
+      if (selectedCard?.id === cardId) {
+        selectedCard = null;
+        document.getElementById('cardEditor').innerHTML = '<p style="color: #666;">Select a card to edit</p>';
+      }
+      renderGrid();
+    }
+
+    function deleteSelectedCard() {
+      if (selectedCard) {
+        deleteCard(selectedCard.id, selectedCard.rowIndex, selectedCard.colIndex);
+      }
+    }
+
+    // Drag & Drop
+    function handleDragStart(e, card, rowIndex, colIndex) {
+      draggedCard = { card, rowIndex, colIndex };
+      e.target.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    }
+
+    function handleDragEnd(e) {
+      e.target.classList.remove('dragging');
+      document.querySelectorAll('.cert-row').forEach(r => r.classList.remove('drag-over'));
+      draggedCard = null;
+    }
+
+    function handleDragOver(e, rowEl) {
+      e.preventDefault();
+      rowEl.classList.add('drag-over');
+    }
+
+    function handleDrop(e, targetRowIndex) {
+      e.preventDefault();
+      if (!draggedCard) return;
+
+      // Remove from source
+      const sourceCol = gridData.rows[draggedCard.rowIndex].columns[draggedCard.colIndex];
+      sourceCol.cards = sourceCol.cards.filter(c => c.id !== draggedCard.card.id);
+
+      // Add to target (first column of target row)
+      gridData.rows[targetRowIndex].columns[0].cards.push(draggedCard.card);
+
+      renderGrid();
+    }
+
+    // Resize
+    function startResize(e, card, cardEl) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const startY = e.clientY;
+      const startHeight = card.height;
+
+      function onMouseMove(e) {
+        const newHeight = Math.max(60, startHeight + (e.clientY - startY));
+        cardEl.style.height = `${newHeight}px`;
+        card.height = newHeight;
+      }
+
+      function onMouseUp() {
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
+        renderGrid();
+      }
+
+      document.addEventListener('mousemove', onMouseMove);
+      document.addEventListener('mouseup', onMouseUp);
+    }
+
+    // Add functions
+    function addRow() {
+      const newRowId = `row${gridData.rows.length + 1}`;
+      gridData.rows.push({
+        id: newRowId,
+        columns: [
+          { id: `${newRowId}_col1`, wide: false, cards: [] },
+          { id: `${newRowId}_col2`, wide: false, cards: [] }
+        ]
+      });
+      renderGrid();
+    }
+
+    function addColumn(rowIndex) {
+      const row = gridData.rows[rowIndex];
+      const newColId = `${row.id}_col${row.columns.length + 1}`;
+      row.columns.push({ id: newColId, wide: false, cards: [] });
+      renderGrid();
+    }
+
+    function addCard() {
+      document.getElementById('addCardModal').style.display = 'flex';
+      updateRowSelect();
+    }
+
+    function openAddModal(rowIndex, colIndex) {
+      document.getElementById('addCardModal').style.display = 'flex';
+      updateRowSelect();
+      document.getElementById('newCardRow').value = rowIndex;
+    }
+
+    function updateRowSelect() {
+      const select = document.getElementById('newCardRow');
+      select.innerHTML = '';
+      gridData.rows.forEach((row, i) => {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `Row ${i + 1}`;
+        select.appendChild(opt);
+      });
+    }
+
+    function closeAddModal() {
+      document.getElementById('addCardModal').style.display = 'none';
+    }
+
+    function confirmAddCard() {
+      const title = document.getElementById('newCardTitle').value;
+      const rowIndex = parseInt(document.getElementById('newCardRow').value);
+      const colIndex = parseInt(document.getElementById('newCardColumn').value) - 1;
+      const image = document.getElementById('newCardImage').value;
+      const color = document.getElementById('newCardColor').value;
+      const height = parseInt(document.getElementById('newCardHeight').value);
+      const hasCert = document.getElementById('newCardHasCert').checked;
+
+      if (!title) {
+        alert('Please enter a title');
+        return;
+      }
+
+      const newCard = {
+        id: title.toLowerCase().replace(/\s+/g, '-'),
+        title,
+        backgroundImage: image || '/assets/images/placeholder.png',
+        color,
+        height,
+        wide: false,
+        hasCertificate: hasCert,
+        certificate: '',
+        certificateImage: ''
+      };
+
+      if (gridData.rows[rowIndex]?.columns[colIndex]) {
+        gridData.rows[rowIndex].columns[colIndex].cards.push(newCard);
+      }
+
+      closeAddModal();
+      renderGrid();
+
+      // Clear form
+      document.getElementById('newCardTitle').value = '';
+      document.getElementById('newCardImage').value = '';
+      document.getElementById('newCardHasCert').checked = false;
+    }
+
+    // Export functions
+    function exportConfig() {
+      const exportData = generateExportData();
+      document.getElementById('exportPreview').textContent = JSON.stringify(exportData, null, 2);
+      document.getElementById('exportModal').style.display = 'flex';
+    }
+
+    function generateExportData() {
+      const certifications = [];
+
+      gridData.rows.forEach(row => {
+        row.columns.forEach(col => {
+          col.cards.forEach(card => {
+            certifications.push({
+              id: card.id,
+              column: col.id,
+              title: card.title,
+              backgroundImage: card.backgroundImage,
+              color: card.color,
+              height: `${card.height}px`,
+              wide: card.wide || false,
+              hasCertificate: card.hasCertificate,
+              certificate: card.certificate || '',
+              certificateImage: card.certificateImage || ''
+            });
+          });
+        });
+      });
+
+      return certifications;
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').style.display = 'none';
+    }
+
+    function copyExport() {
+      const data = generateExportData();
+      navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+      showToast('Copied to clipboard!');
+      closeExportModal();
+    }
+
+    function copyToClipboard() {
+      const data = generateExportData();
+      navigator.clipboard.writeText(JSON.stringify(data, null, 2));
+      showToast('JSON copied to clipboard!');
+    }
+
+    function downloadJSON() {
+      const data = generateExportData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'certifications.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Downloaded certifications.json');
+    }
+
+    function loadFromFile() {
+      document.getElementById('fileInput').click();
+    }
+
+    function handleFileImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          // Reset grid
+          gridData.rows.forEach(row => {
+            row.columns.forEach(col => {
+              col.cards = [];
+            });
+          });
+
+          // Import data
+          data.forEach(cert => {
+            gridData.rows.forEach(row => {
+              row.columns.forEach(col => {
+                if (col.id === cert.column) {
+                  col.cards.push({
+                    id: cert.id,
+                    title: cert.title,
+                    backgroundImage: cert.backgroundImage,
+                    color: cert.color,
+                    height: parseInt(cert.height),
+                    wide: cert.wide || false,
+                    hasCertificate: cert.hasCertificate || false,
+                    certificate: cert.certificate || '',
+                    certificateImage: cert.certificateImage || ''
+                  });
+                }
+              });
+            });
+          });
+
+          renderGrid();
+          showToast('Imported successfully!');
+        } catch (err) {
+          alert('Invalid JSON file');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function updateGridSettings() {
+      gridData.settings.cardGap = parseInt(document.getElementById('cardGap').value);
+      gridData.settings.rowGap = parseInt(document.getElementById('rowGap').value);
+      gridData.settings.columnWidth = parseInt(document.getElementById('columnWidth').value);
+      gridData.settings.wideColumnWidth = parseInt(document.getElementById('wideColumnWidth').value);
+      renderGrid();
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    // Initialize
+    initializeGrid();
+  </script>
+</body>
+</html>

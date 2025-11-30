@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Editor - Neeraj Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+    }
+    .toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #16213e;
+      padding: 12px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 2px solid #0f3460;
+    }
+    .toolbar h1 {
+      font-size: 1.2rem;
+      color: #e94560;
+      margin-right: auto;
+    }
+    .toolbar button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-primary { background: #e94560; color: white; }
+    .btn-secondary { background: #0f3460; color: #eee; }
+    .btn-success { background: #00b894; color: white; }
+    .main-container {
+      display: flex;
+      margin-top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .editor-panel {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .sidebar {
+      width: 350px;
+      background: #16213e;
+      padding: 20px;
+      overflow-y: auto;
+      border-left: 2px solid #0f3460;
+    }
+    .sidebar h2 {
+      font-size: 1rem;
+      color: #e94560;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #0f3460;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #0f3460;
+      border-radius: 6px;
+      background: #1a1a2e;
+      color: #eee;
+      font-size: 0.9rem;
+    }
+    .skill-category {
+      background: #f8f9fa;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .category-header {
+      background: #e9ecef;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+    .category-header img {
+      width: 24px;
+      height: 24px;
+    }
+    .category-header span {
+      font-weight: 600;
+      color: #333;
+      flex: 1;
+    }
+    .category-header button {
+      background: #e94560;
+      border: none;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
+    }
+    .category-skills {
+      padding: 15px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .skill-item {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .skill-item:hover {
+      border-color: #e94560;
+      box-shadow: 0 2px 8px rgba(233, 69, 96, 0.2);
+    }
+    .skill-item.selected {
+      border-color: #e94560;
+      background: #fff5f5;
+    }
+    .skill-item img {
+      width: 24px;
+      height: 24px;
+    }
+    .skill-item span {
+      color: #333;
+      font-size: 0.9rem;
+    }
+    .skill-item .delete-skill {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #e94560;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .skill-item:hover .delete-skill {
+      opacity: 1;
+    }
+    .add-skill-btn, .add-category-btn {
+      border: 2px dashed #aaa;
+      background: transparent;
+      color: #666;
+      border-radius: 8px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .add-skill-btn:hover, .add-category-btn:hover {
+      border-color: #e94560;
+      color: #e94560;
+    }
+    .add-category-btn {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .export-preview {
+      background: #0d1117;
+      border-radius: 8px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 0.7rem;
+      white-space: pre-wrap;
+      color: #58a6ff;
+      max-height: 400px;
+      overflow: auto;
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .modal {
+      background: #16213e;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 500px;
+      width: 90%;
+    }
+    .modal h2 { margin-bottom: 20px; color: #e94560; }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00b894;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 3000;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>⚡ Skills Editor</h1>
+    <button class="btn-secondary" onclick="addCategory()">+ Add Category</button>
+    <button class="btn-secondary" onclick="loadFromFile()">📂 Import</button>
+    <button class="btn-primary" onclick="exportConfig()">📤 Export</button>
+    <button class="btn-success" onclick="copyToClipboard()">📋 Copy JSON</button>
+  </div>
+
+  <div class="main-container">
+    <div class="editor-panel" id="categoriesContainer">
+      <!-- Categories rendered here -->
+    </div>
+
+    <div class="sidebar">
+      <h2>Selected Skill</h2>
+      <div id="skillEditor">
+        <p style="color: #666; font-size: 0.9rem;">Click a skill to edit</p>
+      </div>
+
+      <h2 style="margin-top: 25px;">Quick Add Skill</h2>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="quickCategory"></select>
+      </div>
+      <div class="form-group">
+        <label>Skill Name</label>
+        <input type="text" id="quickSkillName" placeholder="e.g., React">
+      </div>
+      <div class="form-group">
+        <label>Icon URL</label>
+        <input type="text" id="quickSkillIcon" placeholder="https://cdn.jsdelivr.net/...">
+      </div>
+      <button class="btn-primary" style="width: 100%;" onclick="quickAddSkill()">+ Add Skill</button>
+
+      <h2 style="margin-top: 25px;">Common Icons</h2>
+      <p style="font-size: 0.75rem; color: #888; margin-bottom: 10px;">
+        DevIcons CDN:<br>
+        <code style="color: #58a6ff;">https://cdn.jsdelivr.net/gh/devicons/devicon/icons/[name]/[name]-original.svg</code>
+      </p>
+    </div>
+  </div>
+
+  <!-- Add Category Modal -->
+  <div class="modal-overlay" id="addCategoryModal" style="display: none;">
+    <div class="modal">
+      <h2>Add Category</h2>
+      <div class="form-group">
+        <label>Category Title</label>
+        <input type="text" id="newCategoryTitle" placeholder="e.g., Frontend">
+      </div>
+      <div class="form-group">
+        <label>Icon Path</label>
+        <input type="text" id="newCategoryIcon" placeholder="/assets/icons/...">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeCategoryModal()">Cancel</button>
+        <button class="btn-primary" onclick="confirmAddCategory()">Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export Modal -->
+  <div class="modal-overlay" id="exportModal" style="display: none;">
+    <div class="modal" style="max-width: 700px;">
+      <h2>Export skills.json</h2>
+      <div class="export-preview" id="exportPreview"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeExportModal()">Close</button>
+        <button class="btn-success" onclick="downloadJSON()">💾 Download</button>
+        <button class="btn-primary" onclick="copyExport()">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="handleImport(event)">
+
+  <script>
+    let skillsData = [
+      {
+        title: "Programming Languages",
+        icon: "/assets/icons/programming.svg",
+        skills: [
+          { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg", iconType: "svg" },
+          { name: "C++", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg", iconType: "svg" },
+          { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg", iconType: "svg" },
+          { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", iconType: "svg" },
+          { name: "Dart", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg", iconType: "svg" },
+          { name: "Embedded C", icon: "/assets/images/Embedded C.svg", iconType: "svg" },
+          { name: "BASH", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg", iconType: "svg" }
+        ]
+      },
+      {
+        title: "Tools & Technologies",
+        icon: "/assets/icons/tools.svg",
+        skills: [
+          { name: "MATLAB", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matlab/matlab-original.svg", iconType: "svg" },
+          { name: "Multisim", icon: "/assets/icons/icons8-multisim-64.png", iconType: "png" },
+          { name: "KiCad", icon: "/assets/icons/kicad.png", iconType: "png" },
+          { name: "Brave", icon: "/assets/icons/brave-browser-icon.png", iconType: "png" },
+          { name: "Proton", icon: "/assets/icons/icons8-protonmail-48.png", iconType: "png" },
+          { name: "Wireshark", icon: "/assets/icons/icons8-wireshark-64.png", iconType: "png" }
+        ]
+      }
+    ];
+
+    let selectedSkill = null;
+
+    function render() {
+      const container = document.getElementById('categoriesContainer');
+      container.innerHTML = '';
+
+      skillsData.forEach((category, catIndex) => {
+        const catEl = document.createElement('div');
+        catEl.className = 'skill-category';
+
+        catEl.innerHTML = `
+          <div class="category-header">
+            <img src="${category.icon}" alt="" onerror="this.style.display='none'">
+            <span>${category.title}</span>
+            <button onclick="deleteCategory(${catIndex})">Delete</button>
+          </div>
+          <div class="category-skills" id="cat-${catIndex}">
+            ${category.skills.map((skill, skillIndex) => `
+              <div class="skill-item ${selectedSkill?.catIndex === catIndex && selectedSkill?.skillIndex === skillIndex ? 'selected' : ''}" 
+                   onclick="selectSkill(${catIndex}, ${skillIndex})">
+                <img src="${skill.icon}" alt="" onerror="this.style.display='none'">
+                <span>${skill.name}</span>
+                <button class="delete-skill" onclick="event.stopPropagation(); deleteSkill(${catIndex}, ${skillIndex})">×</button>
+              </div>
+            `).join('')}
+            <button class="add-skill-btn" onclick="addSkillToCategory(${catIndex})">+ Add Skill</button>
+          </div>
+        `;
+
+        container.appendChild(catEl);
+      });
+
+      updateCategorySelect();
+    }
+
+    function selectSkill(catIndex, skillIndex) {
+      selectedSkill = { catIndex, skillIndex };
+      const skill = skillsData[catIndex].skills[skillIndex];
+      
+      document.getElementById('skillEditor').innerHTML = `
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" value="${skill.name}" onchange="updateSkill('name', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Icon URL</label>
+          <input type="text" value="${skill.icon}" onchange="updateSkill('icon', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Icon Type</label>
+          <select onchange="updateSkill('iconType', this.value)">
+            <option value="svg" ${skill.iconType === 'svg' ? 'selected' : ''}>SVG</option>
+            <option value="png" ${skill.iconType === 'png' ? 'selected' : ''}>PNG</option>
+          </select>
+        </div>
+        <button class="btn-primary" style="width: 100%; margin-top: 10px; background: #e94560;" 
+                onclick="deleteSkill(${catIndex}, ${skillIndex})">🗑️ Delete Skill</button>
+      `;
+
+      render();
+    }
+
+    function updateSkill(prop, value) {
+      if (selectedSkill) {
+        skillsData[selectedSkill.catIndex].skills[selectedSkill.skillIndex][prop] = value;
+        render();
+      }
+    }
+
+    function deleteSkill(catIndex, skillIndex) {
+      skillsData[catIndex].skills.splice(skillIndex, 1);
+      selectedSkill = null;
+      document.getElementById('skillEditor').innerHTML = '<p style="color: #666;">Click a skill to edit</p>';
+      render();
+    }
+
+    function deleteCategory(catIndex) {
+      if (confirm('Delete this category and all its skills?')) {
+        skillsData.splice(catIndex, 1);
+        render();
+      }
+    }
+
+    function addSkillToCategory(catIndex) {
+      const name = prompt('Skill name:');
+      if (name) {
+        skillsData[catIndex].skills.push({
+          name,
+          icon: '',
+          iconType: 'svg'
+        });
+        render();
+      }
+    }
+
+    function addCategory() {
+      document.getElementById('addCategoryModal').style.display = 'flex';
+    }
+
+    function closeCategoryModal() {
+      document.getElementById('addCategoryModal').style.display = 'none';
+    }
+
+    function confirmAddCategory() {
+      const title = document.getElementById('newCategoryTitle').value;
+      const icon = document.getElementById('newCategoryIcon').value;
+      
+      if (title) {
+        skillsData.push({
+          title,
+          icon: icon || '/assets/icons/tools.svg',
+          skills: []
+        });
+        closeCategoryModal();
+        render();
+      }
+    }
+
+    function updateCategorySelect() {
+      const select = document.getElementById('quickCategory');
+      select.innerHTML = skillsData.map((cat, i) => 
+        `<option value="${i}">${cat.title}</option>`
+      ).join('');
+    }
+
+    function quickAddSkill() {
+      const catIndex = parseInt(document.getElementById('quickCategory').value);
+      const name = document.getElementById('quickSkillName').value;
+      const icon = document.getElementById('quickSkillIcon').value;
+
+      if (name) {
+        skillsData[catIndex].skills.push({
+          name,
+          icon: icon || '',
+          iconType: icon.endsWith('.png') ? 'png' : 'svg'
+        });
+        document.getElementById('quickSkillName').value = '';
+        document.getElementById('quickSkillIcon').value = '';
+        render();
+        showToast('Skill added!');
+      }
+    }
+
+    function exportConfig() {
+      document.getElementById('exportPreview').textContent = JSON.stringify(skillsData, null, 2);
+      document.getElementById('exportModal').style.display = 'flex';
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').style.display = 'none';
+    }
+
+    function copyExport() {
+      navigator.clipboard.writeText(JSON.stringify(skillsData, null, 2));
+      showToast('Copied!');
+      closeExportModal();
+    }
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(JSON.stringify(skillsData, null, 2));
+      showToast('JSON copied!');
+    }
+
+    function downloadJSON() {
+      const blob = new Blob([JSON.stringify(skillsData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'skills.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function loadFromFile() {
+      document.getElementById('fileInput').click();
+    }
+
+    function handleImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          skillsData = JSON.parse(e.target.result);
+          render();
+          showToast('Imported!');
+        } catch (err) {
+          alert('Invalid JSON');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    render();
+  </script>
+</body>
+</html>

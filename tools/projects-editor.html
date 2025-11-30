@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects Editor - Neeraj Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
+    }
+    .toolbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: #16213e;
+      padding: 12px 20px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      z-index: 1000;
+      border-bottom: 2px solid #0f3460;
+    }
+    .toolbar h1 { font-size: 1.2rem; color: #e94560; margin-right: auto; }
+    .toolbar button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-primary { background: #e94560; color: white; }
+    .btn-secondary { background: #0f3460; color: #eee; }
+    .btn-success { background: #00b894; color: white; }
+    .main-container {
+      display: flex;
+      margin-top: 60px;
+      height: calc(100vh - 60px);
+    }
+    .editor-panel {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .sidebar {
+      width: 380px;
+      background: #16213e;
+      padding: 20px;
+      overflow-y: auto;
+      border-left: 2px solid #0f3460;
+    }
+    .sidebar h2 {
+      font-size: 1rem;
+      color: #e94560;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #0f3460;
+    }
+    .form-group {
+      margin-bottom: 12px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #0f3460;
+      border-radius: 6px;
+      background: #1a1a2e;
+      color: #eee;
+      font-size: 0.9rem;
+    }
+    .form-group textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+    .project-card:hover {
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transform: translateY(-2px);
+    }
+    .project-card.selected {
+      border-color: #e94560;
+    }
+    .project-header {
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      position: relative;
+    }
+    .project-header h3 {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+    .project-header p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+    .project-body {
+      padding: 15px 20px;
+      color: #333;
+    }
+    .project-body p {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .project-tag {
+      background: #e9ecef;
+      color: #495057;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+    }
+    .project-delete {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .project-card:hover .project-delete {
+      opacity: 1;
+    }
+    .add-project-card {
+      border: 2px dashed #aaa;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      cursor: pointer;
+      color: #666;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .add-project-card:hover {
+      border-color: #e94560;
+      color: #e94560;
+    }
+    .tag-input {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 8px;
+      background: #1a1a2e;
+      border: 1px solid #0f3460;
+      border-radius: 6px;
+      min-height: 40px;
+    }
+    .tag {
+      background: #e94560;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .tag button {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+    }
+    .tag-input input {
+      border: none;
+      background: none;
+      color: #eee;
+      flex: 1;
+      min-width: 80px;
+      padding: 4px;
+    }
+    .details-list {
+      background: #0f3460;
+      border-radius: 6px;
+      padding: 10px;
+    }
+    .detail-item {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .detail-item input {
+      flex: 1;
+      padding: 6px;
+      border: 1px solid #0f3460;
+      border-radius: 4px;
+      background: #1a1a2e;
+      color: #eee;
+      font-size: 0.85rem;
+    }
+    .detail-item button {
+      background: #e94560;
+      border: none;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .export-preview {
+      background: #0d1117;
+      border-radius: 8px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 0.7rem;
+      white-space: pre-wrap;
+      color: #58a6ff;
+      max-height: 400px;
+      overflow: auto;
+    }
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+    }
+    .modal {
+      background: #16213e;
+      border-radius: 12px;
+      padding: 24px;
+      max-width: 600px;
+      width: 90%;
+    }
+    .modal h2 { margin-bottom: 20px; color: #e94560; }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: flex-end;
+    }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #00b894;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 3000;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>📁 Projects Editor</h1>
+    <button class="btn-secondary" onclick="addProject()">+ Add Project</button>
+    <button class="btn-secondary" onclick="loadFromFile()">📂 Import</button>
+    <button class="btn-primary" onclick="exportConfig()">📤 Export</button>
+    <button class="btn-success" onclick="copyToClipboard()">📋 Copy JSON</button>
+  </div>
+
+  <div class="main-container">
+    <div class="editor-panel">
+      <div class="projects-grid" id="projectsGrid"></div>
+    </div>
+
+    <div class="sidebar">
+      <h2>Selected Project</h2>
+      <div id="projectEditor">
+        <p style="color: #666; font-size: 0.9rem;">Click a project to edit</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="exportModal" style="display: none;">
+    <div class="modal">
+      <h2>Export projects.json</h2>
+      <div class="export-preview" id="exportPreview"></div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeExportModal()">Close</button>
+        <button class="btn-success" onclick="downloadJSON()">💾 Download</button>
+        <button class="btn-primary" onclick="copyExport()">📋 Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept=".json" style="display: none;" onchange="handleImport(event)">
+
+  <script>
+    let projectsData = [
+      {
+        id: "portfolio",
+        title: "Portfolio Website",
+        subtitle: "Personal portfolio built with Next.js",
+        description: "A modern, responsive portfolio showcasing my skills and projects.",
+        details: [
+          "Built with Next.js 14 and TypeScript",
+          "Responsive design with Tailwind CSS",
+          "Interactive animations and transitions"
+        ],
+        link: "https://neeraj-parekh.github.io",
+        tags: ["Next.js", "TypeScript", "Tailwind CSS"]
+      },
+      {
+        id: "iot-gas",
+        title: "IoT Gas Detection",
+        subtitle: "Smart home safety system",
+        description: "An IoT-based gas detection and automation system for home safety.",
+        details: [
+          "ESP32-based sensor network",
+          "Real-time monitoring dashboard",
+          "SMS and push notifications"
+        ],
+        link: "",
+        tags: ["IoT", "ESP32", "Python"]
+      }
+    ];
+
+    let selectedIndex = null;
+
+    function render() {
+      const grid = document.getElementById('projectsGrid');
+      grid.innerHTML = '';
+
+      projectsData.forEach((project, index) => {
+        const card = document.createElement('div');
+        card.className = `project-card ${selectedIndex === index ? 'selected' : ''}`;
+        card.onclick = () => selectProject(index);
+
+        card.innerHTML = `
+          <div class="project-header">
+            <h3>${project.title}</h3>
+            <p>${project.subtitle}</p>
+            <button class="project-delete" onclick="event.stopPropagation(); deleteProject(${index})">×</button>
+          </div>
+          <div class="project-body">
+            <p>${project.description}</p>
+            <div class="project-tags">
+              ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      const addCard = document.createElement('div');
+      addCard.className = 'add-project-card';
+      addCard.textContent = '+ Add New Project';
+      addCard.onclick = addProject;
+      grid.appendChild(addCard);
+    }
+
+    function selectProject(index) {
+      selectedIndex = index;
+      const project = projectsData[index];
+
+      document.getElementById('projectEditor').innerHTML = `
+        <div class="form-group">
+          <label>ID</label>
+          <input type="text" value="${project.id}" onchange="updateProject('id', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" value="${project.title}" onchange="updateProject('title', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Subtitle</label>
+          <input type="text" value="${project.subtitle}" onchange="updateProject('subtitle', this.value)">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea onchange="updateProject('description', this.value)">${project.description}</textarea>
+        </div>
+        <div class="form-group">
+          <label>Link</label>
+          <input type="text" value="${project.link || ''}" onchange="updateProject('link', this.value)" placeholder="https://...">
+        </div>
+        <div class="form-group">
+          <label>Tags (press Enter to add)</label>
+          <div class="tag-input" id="tagsContainer">
+            ${project.tags.map((tag, i) => `
+              <div class="tag">${tag} <button onclick="removeTag(${i})">×</button></div>
+            `).join('')}
+            <input type="text" id="newTag" placeholder="Add tag..." onkeypress="handleTagKeypress(event)">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Details</label>
+          <div class="details-list">
+            ${project.details.map((detail, i) => `
+              <div class="detail-item">
+                <input type="text" value="${detail}" onchange="updateDetail(${i}, this.value)">
+                <button onclick="removeDetail(${i})">×</button>
+              </div>
+            `).join('')}
+            <button class="btn-secondary" style="width: 100%; padding: 6px; font-size: 0.8rem; margin-top: 5px;" onclick="addDetail()">+ Add Detail</button>
+          </div>
+        </div>
+        <button class="btn-primary" style="width: 100%; margin-top: 15px; background: #e94560;" onclick="deleteProject(${index})">🗑️ Delete Project</button>
+      `;
+
+      render();
+    }
+
+    function updateProject(prop, value) {
+      if (selectedIndex !== null) {
+        projectsData[selectedIndex][prop] = value;
+        render();
+      }
+    }
+
+    function handleTagKeypress(e) {
+      if (e.key === 'Enter' && e.target.value.trim()) {
+        projectsData[selectedIndex].tags.push(e.target.value.trim());
+        selectProject(selectedIndex);
+      }
+    }
+
+    function removeTag(index) {
+      projectsData[selectedIndex].tags.splice(index, 1);
+      selectProject(selectedIndex);
+    }
+
+    function addDetail() {
+      projectsData[selectedIndex].details.push('New detail');
+      selectProject(selectedIndex);
+    }
+
+    function updateDetail(index, value) {
+      projectsData[selectedIndex].details[index] = value;
+    }
+
+    function removeDetail(index) {
+      projectsData[selectedIndex].details.splice(index, 1);
+      selectProject(selectedIndex);
+    }
+
+    function addProject() {
+      projectsData.push({
+        id: `project-${Date.now()}`,
+        title: 'New Project',
+        subtitle: 'Project subtitle',
+        description: 'Project description',
+        details: ['Detail 1'],
+        link: '',
+        tags: ['Tag1']
+      });
+      render();
+      selectProject(projectsData.length - 1);
+    }
+
+    function deleteProject(index) {
+      projectsData.splice(index, 1);
+      selectedIndex = null;
+      document.getElementById('projectEditor').innerHTML = '<p style="color: #666;">Click a project to edit</p>';
+      render();
+    }
+
+    function exportConfig() {
+      document.getElementById('exportPreview').textContent = JSON.stringify(projectsData, null, 2);
+      document.getElementById('exportModal').style.display = 'flex';
+    }
+
+    function closeExportModal() {
+      document.getElementById('exportModal').style.display = 'none';
+    }
+
+    function copyExport() {
+      navigator.clipboard.writeText(JSON.stringify(projectsData, null, 2));
+      showToast('Copied!');
+      closeExportModal();
+    }
+
+    function copyToClipboard() {
+      navigator.clipboard.writeText(JSON.stringify(projectsData, null, 2));
+      showToast('JSON copied!');
+    }
+
+    function downloadJSON() {
+      const blob = new Blob([JSON.stringify(projectsData, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'projects.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function loadFromFile() {
+      document.getElementById('fileInput').click();
+    }
+
+    function handleImport(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          projectsData = JSON.parse(e.target.result);
+          render();
+          showToast('Imported!');
+        } catch (err) {
+          alert('Invalid JSON');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    render();
+  </script>
+</body>
+</html>
